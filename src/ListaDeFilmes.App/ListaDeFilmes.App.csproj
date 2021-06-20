@@ -13,4 +13,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ListaDeFilmes.Data\ListaDeFilmes.Data.csproj" />
+  </ItemGroup>
+
 </Project>
