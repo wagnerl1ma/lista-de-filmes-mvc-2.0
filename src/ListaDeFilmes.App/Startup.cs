@@ -1,5 +1,7 @@
 using ListaDeFilmes.App.Data;
+using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Data.Context;
+using ListaDeFilmes.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,10 +34,15 @@ namespace ListaDeFilmes.App
 
             services.AddDbContext<ListaDeFilmesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
+
             services.AddRazorPages();
+
+            services.AddScoped<ListaDeFilmesContext>();
+            services.AddScoped<IFilmeRepository, FilmeRepository>();
+            services.AddScoped<IGeneroRepository, GeneroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
