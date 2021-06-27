@@ -9,20 +9,20 @@ namespace ListaDeFilmes.Business.Models
 
         public ICollection<Filme> Filmes { get; set; }
 
-        public Diretor()
-        {
+        //public Diretor()
+        //{
 
-        }
+        //}
 
-        public Diretor(string nome)
-        {
-            Nome = nome;
-        }
+        //public Diretor(string nome)
+        //{
+        //    Nome = nome;
+        //}
 
-        public Diretor(Guid id, string nome)
-        {
-            Id = id;
-            Nome = nome;
-        }
+        //public Diretor(Guid id, string nome)
+        //{
+        //    Id = id;
+        //    Nome = nome;
+        //}
     }
 }

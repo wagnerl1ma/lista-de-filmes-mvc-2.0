@@ -10,23 +10,23 @@ namespace ListaDeFilmes.Business.Models
         public Ator Ator { get; set; }
         public Guid AtorId { get; set; }
 
-        public FilmeAtor()
-        {
+        //public FilmeAtor()
+        //{
 
-        }
+        //}
 
-        public FilmeAtor(Filme filme, Ator ator)
-        {
-            Filme = filme;
-            Ator = ator;
-        }
+        //public FilmeAtor(Filme filme, Ator ator)
+        //{
+        //    Filme = filme;
+        //    Ator = ator;
+        //}
 
-        public FilmeAtor(Guid filmeId, Filme filme, Guid atorId, Ator ator)
-        {
-            FilmeId = filmeId;
-            Filme = filme;
-            AtorId = atorId;
-            Ator = ator;
-        }
+        //public FilmeAtor(Guid filmeId, Filme filme, Guid atorId, Ator ator)
+        //{
+        //    FilmeId = filmeId;
+        //    Filme = filme;
+        //    AtorId = atorId;
+        //    Ator = ator;
+        //}
     }
 }

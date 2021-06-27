@@ -1,3 +1,4 @@
+using AutoMapper;
 using ListaDeFilmes.App.Data;
 using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Data.Context;
@@ -35,6 +36,8 @@ namespace ListaDeFilmes.App
             services.AddDbContext<ListaDeFilmesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddControllersWithViews();
 

@@ -9,20 +9,20 @@ namespace ListaDeFilmes.Business.Models
 
         public List<Filme> Filmes { get; set; }
 
-        public Produtora()
-        {
+        //public Produtora()
+        //{
 
-        }
+        //}
 
-        public Produtora(string nome)
-        {
-            Nome = nome;
-        }
+        //public Produtora(string nome)
+        //{
+        //    Nome = nome;
+        //}
 
-        public Produtora(Guid id, string nome)
-        {
-            Id = id;
-            Nome = nome;
-        }
+        //public Produtora(Guid id, string nome)
+        //{
+        //    Id = id;
+        //    Nome = nome;
+        //}
     }
 }

@@ -27,6 +27,13 @@ namespace ListaDeFilmes.Data.Mappings
 
             builder.Property(f => f.Comentarios).HasColumnName("Comentarios_Filme").HasColumnType("varchar(300)").IsRequired(false);
 
+            builder.Property(p => p.Imagem).HasColumnType("varchar(200)").IsRequired();
+
+            builder.Property(p => p.Valor).HasColumnType("decimal(18,2)").IsRequired();
+
+            builder.Property(p => p.Ativo).HasColumnType("bit").IsRequired();
+
+
             builder.Property(f => f.GeneroId).HasColumnName("Id_Genero").IsRequired();
 
             builder.Property(f => f.DiretorId).HasColumnName("Id_Diretor").IsRequired(false);  //TODO: RETIRAR A OPÇÃO DE ACEITAR NULO QUANDO TERMINAR O CRUD E A SERVICE

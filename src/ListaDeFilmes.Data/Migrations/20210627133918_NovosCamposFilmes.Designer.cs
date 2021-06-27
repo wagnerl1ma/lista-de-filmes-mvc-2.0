@@ -4,14 +4,16 @@ using ListaDeFilmes.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ListaDeFilmes.Data.Migrations
 {
     [DbContext(typeof(ListaDeFilmesContext))]
-    partial class ListaDeFilmesContextModelSnapshot : ModelSnapshot
+    [Migration("20210627133918_NovosCamposFilmes")]
+    partial class NovosCamposFilmes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

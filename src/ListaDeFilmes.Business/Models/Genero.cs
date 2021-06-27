@@ -10,25 +10,25 @@ namespace ListaDeFilmes.Business.Models
         public ICollection<Filme> Filmes { get; set; } = new List<Filme>();   //= O new List<Filme> garante que a lista seja instanciada  //Relacionamento: um genero tem em vários filmes
 
 
-        public Genero()
-        {
+        //public Genero()
+        //{
 
-        }
+        //}
 
-        public Genero(string nome)
-        {
-            Nome = nome;
-        }
+        //public Genero(string nome)
+        //{
+        //    Nome = nome;
+        //}
 
-        public Genero(Guid id, string nome)
-        {
-            Id = id;
-            Nome = nome;
-        }
+        //public Genero(Guid id, string nome)
+        //{
+        //    Id = id;
+        //    Nome = nome;
+        //}
 
-        public void AddFilme(Filme filme)
-        {
-            Filmes.Add(filme);
-        }
+        //public void AddFilme(Filme filme)
+        //{
+        //    Filmes.Add(filme);
+        //}
     }
 }

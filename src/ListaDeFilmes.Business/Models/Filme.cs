@@ -17,6 +17,12 @@ namespace ListaDeFilmes.Business.Models
 
         public string Comentarios { get; set; }
 
+        public string Imagem { get; set; }
+
+        public decimal Valor { get; set; }
+
+        public bool Ativo { get; set; }
+
 
         // Um Filme pode ter vários Atores (Relacionamneto muitos para muitos)
         public ICollection<FilmeAtor> FilmesAtores { get; set; }
@@ -36,50 +42,56 @@ namespace ListaDeFilmes.Business.Models
         public Guid? ProdutoraId { get; set; }        //TODO: RETIRAR A OPÇÃO DE ACEITAR NULO QUANDO TERMINAR O CRUD E A SERVICE
 
 
-        public Filme()
-        {
+        //public Filme()
+        //{
 
-        }
+        //}
 
-        public Filme(Guid id, string nome, string classificacao, int? ano, string comentarios, Genero genero, Diretor diretor, Produtora produtora)
-        {
-            Id = id;
-            Nome = nome;
-            Classificacao = classificacao;
-            Ano = ano;
-            Comentarios = comentarios;
-            Genero = genero;
-            Diretor = diretor;
-            Produtora = produtora;
-        }
+        //public Filme(Guid id, string nome, string classificacao, int? ano, string comentarios, string imagem, decimal valor, bool ativo, Genero genero, Diretor diretor, Produtora produtora)
+        //{
+        //    Id = id;
+        //    Nome = nome;
+        //    Classificacao = classificacao;
+        //    Ano = ano;
+        //    Comentarios = comentarios;
+        //    Genero = genero;
+        //    Diretor = diretor;
+        //    Produtora = produtora;
+        //    Imagem = imagem;
+        //    Valor = valor;
+        //    Ativo = Ativo;
+        //}
 
-        public Filme(string nome, string classificacao, int? ano, string comentarios, Genero genero, Diretor diretor, Produtora produtora)
-        {
-            Nome = nome;
-            Classificacao = classificacao;
-            Ano = ano;
-            Comentarios = comentarios;
-            Genero = genero;
-            Diretor = diretor;
-            Produtora = produtora;
-        }
+        //public Filme(string nome, string classificacao, int? ano, string comentarios, string imagem, decimal valor, bool ativo, Genero genero, Diretor diretor, Produtora produtora)
+        //{
+        //    Nome = nome;
+        //    Classificacao = classificacao;
+        //    Ano = ano;
+        //    Comentarios = comentarios;
+        //    Genero = genero;
+        //    Diretor = diretor;
+        //    Produtora = produtora;
+        //    Imagem = imagem;
+        //    Valor = valor;
+        //    Ativo = Ativo;
+        //}
 
-        public void AddFilmeAtores(FilmeAtor filmeAtor)
-        {
-            FilmesAtores.Add(filmeAtor);
-        }
+        //public void AddFilmeAtores(FilmeAtor filmeAtor)
+        //{
+        //    FilmesAtores.Add(filmeAtor);
+        //}
 
-        public void RemoverFilmeAtores(FilmeAtor filme)
-        {
-            FilmesAtores.Remove(filme);
-        }
+        //public void RemoverFilmeAtores(FilmeAtor filme)
+        //{
+        //    FilmesAtores.Remove(filme);
+        //}
 
 
-        //Buscar ultimos cadastrados
-        public double UltimosCadastrados(DateTime inicio, DateTime final)
-        {
-            return Genero.Filmes.Where(g => g.DataCadastro >= inicio && g.DataCadastro <= final).Sum(g => g.Genero.Filmes.Count());
-        }
+        ////Buscar ultimos cadastrados
+        //public double UltimosCadastrados(DateTime inicio, DateTime final)
+        //{
+        //    return Genero.Filmes.Where(g => g.DataCadastro >= inicio && g.DataCadastro <= final).Sum(g => g.Genero.Filmes.Count());
+        //}
 
         //Buscar por lançamentos  -- criar
 
