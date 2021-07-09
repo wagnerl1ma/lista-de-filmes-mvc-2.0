@@ -14,7 +14,12 @@ namespace ListaDeFilmes.Data.Repository
     {
         public FilmeRepository(ListaDeFilmesContext context) : base(context) { }
 
-        public async Task<List<Filme>> GetFilmesComNomeGeneroAsync()
+        public async Task<Filme> ObterFilmeGenero(Guid id)
+        {
+            return await Db.Filmes.AsNoTracking().Include(g => g.Genero).FirstOrDefaultAsync(f => f.Id == id);
+        }
+
+        public async Task<List<Filme>> ObterFilmesGeneros()
         {
             return await Db.Filmes.AsNoTracking().Include(x => x.Genero).ToListAsync(); //instanciando o Genero junto com a lista de filmes
         }

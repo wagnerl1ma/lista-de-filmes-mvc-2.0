@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ListaDeFilmes.App.ViewModels;
 
 namespace ListaDeFilmes.App.Data
 {
@@ -12,5 +13,6 @@ namespace ListaDeFilmes.App.Data
             : base(options)
         {
         }
+        public DbSet<ListaDeFilmes.App.ViewModels.FilmeViewModel> FilmeViewModel { get; set; }
     }
 }

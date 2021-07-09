@@ -53,14 +53,18 @@ namespace ListaDeFilmes.App.ViewModels
         // Um Filme só pode ter um Genero (Relacionamento um para muitos)
         [Display(Name = "Gênero")] //Espaço Reservado - placeholder
         public GeneroViewModel Genero { get; set; }
+        public IEnumerable<GeneroViewModel> Generos { get; set; }
+        public Guid GeneroId { get; set; }
 
 
         // Um Filme só pode ter um Diretor (Relacionamneto um para muitos)
         public DiretorViewModel Diretor { get; set; }
+        public Guid? DiretorId { get; set; }
 
 
         // Um Filme só pode ter um Produtora (Relacionamneto um para muitos)
         public ProdutoraViewModel Produtora { get; set; }
+        public Guid? ProdutoraId { get; set; }
 
 
         //public FilmeViewModel()

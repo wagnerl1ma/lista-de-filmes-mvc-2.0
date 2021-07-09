@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,6 +8,9 @@ namespace ListaDeFilmes.App.ViewModels
 {
     public class FilmeAtorViewModel
     {
+        [Key]
+        public Guid Id { get; set; }
+
         public FilmeViewModel Filme { get; set; }
         public Guid FilmeId { get; set; }
 

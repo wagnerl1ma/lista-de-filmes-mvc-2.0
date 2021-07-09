@@ -10,7 +10,8 @@ namespace ListaDeFilmes.Business.Interfaces
     {
         Task<List<Filme>> PesquisaNomeFilme(string nomeFilme);
 
-        Task<List<Filme>> GetFilmesComNomeGeneroAsync();
+        Task<List<Filme>> ObterFilmesGeneros();
 
+        Task<Filme> ObterFilmeGenero(Guid id);
     }
 }
