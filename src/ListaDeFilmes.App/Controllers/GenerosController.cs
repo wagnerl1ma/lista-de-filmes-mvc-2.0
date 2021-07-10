@@ -34,7 +34,8 @@ namespace ListaDeFilmes.App.Controllers
         // GET: Generos/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
-            var generoViewModel = await _generoRepository.ObterPorId(id);
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            //var generoViewModel = await _generoRepository.ObterPorId(id);
 
             if (generoViewModel == null)
             {
@@ -71,7 +72,8 @@ namespace ListaDeFilmes.App.Controllers
         // GET: Generos/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
-            var generoViewModel = await _generoRepository.ObterPorId(id);
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            //var generoViewModel = await _generoRepository.ObterPorId(id);
 
             if (generoViewModel == null)
             {
@@ -107,7 +109,8 @@ namespace ListaDeFilmes.App.Controllers
         // GET: Generos/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
-            var generoViewModel = await _generoRepository.ObterPorId(id);
+            //var generoViewModel = await _generoRepository.ObterPorId(id);
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
 
             if (generoViewModel == null)
             {

@@ -13,6 +13,5 @@ namespace ListaDeFilmes.App.Data
             : base(options)
         {
         }
-        public DbSet<ListaDeFilmes.App.ViewModels.FilmeViewModel> FilmeViewModel { get; set; }
     }
 }

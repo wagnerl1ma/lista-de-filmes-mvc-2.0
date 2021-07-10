@@ -1,13 +1,15 @@
 ﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Gênero";
 }
 
-<h1>Create</h1>
+<h1>@ViewData["Title"]</h1>
 
-<h4>GeneroViewModel</h4>
+<h4>Cadastrar</h4>
+
 <hr />
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
@@ -18,14 +20,11 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <a class="btn btn-info" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

@@ -49,7 +49,7 @@ namespace ListaDeFilmes.App.Controllers
         public async Task<IActionResult> Create()
         {
             var filmeViewModel = await PopularGeneros(new FilmeViewModel());
-            return View();
+            return View(filmeViewModel);
         }
 
         // POST: Filmes/Create

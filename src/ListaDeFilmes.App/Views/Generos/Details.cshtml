@@ -1,5 +1,5 @@
 ﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
-
+@*@model ListaDeFilmes.Business.Models.Genero*@
 @{
     ViewData["Title"] = "Details";
 }
@@ -10,10 +10,10 @@
     <h4>GeneroViewModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nome)
         </dd>
     </dl>
