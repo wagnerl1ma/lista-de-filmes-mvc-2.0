@@ -120,21 +120,21 @@ namespace ListaDeFilmes.App.Controllers
                 return View(filmeViewModel); 
             }
 
-            //if (filmeViewModel.ImagemUpload != null)
-            //{
-            //    var imgPrefixo = Guid.NewGuid() + "_";
-            //    if (!await UploadArquivo(filmeViewModel.ImagemUpload, imgPrefixo))
-            //    {
-            //        return View(filmeViewModel);
-            //    }
+            if (filmeViewModel.ImagemUpload != null)
+            {
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(filmeViewModel.ImagemUpload, imgPrefixo))
+                {
+                    return View(filmeViewModel);
+                }
 
-            //    filmeAtualizacao.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
-            //}
+                filmeAtualizacao.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
+            }
 
             filmeAtualizacao.Nome = filmeViewModel.Nome;
             filmeAtualizacao.Classificacao = filmeViewModel.Classificacao;
             filmeAtualizacao.Ano = filmeViewModel.Ano;
-            filmeAtualizacao.Comentarios = filmeViewModel.Comentarios;
+            //filmeAtualizacao.Comentarios = filmeViewModel.Comentarios;
             filmeAtualizacao.Valor = filmeViewModel.Valor;
             filmeAtualizacao.Ativo = filmeViewModel.Ativo;
 

@@ -21,8 +21,8 @@ namespace ListaDeFilmes.App.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH':'mm':'ss}")]
         //[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]   //formato para Data de Nascimento
         [Display(Name = "Data do Cadastro")]
-        //public DateTime? DataCadastro { get; set; } = DateTime.Now;
-        public DateTime? DataCadastro { get; set; }
+        public DateTime? DataCadastro { get; set; } = DateTime.Now;
+        //public DateTime? DataCadastro { get; set; }
 
         [Required(ErrorMessage = "É necessário colocar uma {0}")] //obrigatorio
         [Display(Name = "Classificação", Prompt = "Ex: 9, 12, 16, 18 ou Livre")] //Propt = Espaço Reservado - placeholder
