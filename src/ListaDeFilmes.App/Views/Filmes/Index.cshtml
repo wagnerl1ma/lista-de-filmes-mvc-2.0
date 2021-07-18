@@ -14,7 +14,7 @@
 </p>
 
 <table class="table table-striped table-hover">
-    <thead">
+    <thead>
         <tr class="bg-transparent">
             <th>
                 @*@Html.DisplayNameFor(model => model.Imagem)*@
@@ -24,9 +24,13 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
 
+            <th>
+                @Html.DisplayNameFor(model => model.Genero)
+            </th>
+
             @*<th>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </th>*@
+            @Html.DisplayNameFor(model => model.DataCadastro)
+        </th>*@
 
             <th>
                 @Html.DisplayNameFor(model => model.Classificacao)
@@ -37,8 +41,8 @@
             </th>
 
             @*<th>
-                @Html.DisplayNameFor(model => model.Comentarios)
-            </th>*@
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </th>*@
 
             <th>
                 @Html.DisplayNameFor(model => model.Valor)
@@ -48,9 +52,7 @@
                 @Html.DisplayNameFor(model => model.Ativo)
             </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.Genero)
-            </th>
+
 
             <th>
                 @Html.DisplayNameFor(model => model.Diretor)
@@ -74,9 +76,13 @@
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
 
+            <td>
+                @Html.DisplayFor(modelItem => item.Genero.Nome)
+            </td>
+
             @*<td>
-                @Html.DisplayFor(modelItem => item.DataCadastro)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.DataCadastro)
+        </td>*@
 
             <td>
                 @Html.DisplayFor(modelItem => item.Classificacao)
@@ -87,12 +93,12 @@
             </td>
 
             @*<td>
-                @Html.DisplayFor(modelItem => item.Comentarios)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.Comentarios)
+        </td>*@
 
             @*<td>
-                @Html.DisplayFor(modelItem => item.Imagem)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.Imagem)
+        </td>*@
 
             <td>
                 @Html.DisplayFor(modelItem => item.Valor)
@@ -102,16 +108,14 @@
                 @Html.DisplayFor(modelItem => item.Ativo)
             </td>
 
+
+
             <td>
-                @Html.DisplayFor(modelItem => item.Genero.Id)
+                @Html.DisplayFor(modelItem => item.Diretor.Nome)
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => item.Diretor.Id)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Produtora.Id)
+                @Html.DisplayFor(modelItem => item.Produtora.Nome)
             </td>
 
             <td class="text-right">

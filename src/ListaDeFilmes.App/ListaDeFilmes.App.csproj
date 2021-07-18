@@ -20,4 +20,8 @@
     <ProjectReference Include="..\ListaDeFilmes.Data\ListaDeFilmes.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\imagens\" />
+  </ItemGroup>
+
 </Project>

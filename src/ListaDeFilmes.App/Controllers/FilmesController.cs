@@ -10,6 +10,8 @@ using ListaDeFilmes.App.ViewModels;
 using ListaDeFilmes.Business.Interfaces;
 using AutoMapper;
 using ListaDeFilmes.Business.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace ListaDeFilmes.App.Controllers
 {
@@ -66,7 +68,21 @@ namespace ListaDeFilmes.App.Controllers
                 return View(filmeViewModel);
             }
 
+            var imgPrefixo = Guid.NewGuid() + "_";
+
+            if (!await UploadArquivo(filmeViewModel.ImagemUpload, imgPrefixo))
+            {
+                return View(filmeViewModel);
+            }
+
+            filmeViewModel.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
+
             await _filmeRepository.Adicionar(_mapper.Map<Filme>(filmeViewModel));
+
+            //if (!OperacaoValida())
+            //{
+            //    return View(filmeViewModel);
+            //}
 
             return RedirectToAction(nameof(Index));
         }
@@ -183,6 +199,27 @@ namespace ListaDeFilmes.App.Controllers
         {
             filme.Generos = _mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos());
             return filme;
+        }
+
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            //irá gravar a imagem nesse caminho
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+
+            if (System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com este nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await arquivo.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }
