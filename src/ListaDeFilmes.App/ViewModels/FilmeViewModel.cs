@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ListaDeFilmes.App.Extensions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -40,7 +41,7 @@ namespace ListaDeFilmes.App.ViewModels
 
         public string Imagem { get; set; }
 
-        //[Moeda]  //[Moeda] é um DataAnnotations Personalizado
+        [Moeda]  //[Moeda] é um DataAnnotations Personalizado
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Valor { get; set; }
 

@@ -81,14 +81,14 @@
 
                 @*<td>
                         @Html.DisplayFor(modelItem => item.Comentarios)
-                    </td>*@
+                </td>*@
 
                 @*<td>
                         @Html.DisplayFor(modelItem => item.Imagem)
-                    </td>*@
+                </td>*@
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Valor)
+                    @item.Valor.ToString("C2").Replace("$", "$ ")  @*//formato moeda pt-BR com duas casas decimais*@
                 </td>
 
                 <td>

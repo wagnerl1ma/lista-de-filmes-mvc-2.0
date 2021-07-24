@@ -1,5 +1,6 @@
 using AutoMapper;
 using ListaDeFilmes.App.Data;
+using ListaDeFilmes.App.Extensions;
 using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Data.Context;
 using ListaDeFilmes.Data.Repository;
@@ -8,12 +9,16 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,13 +44,31 @@ namespace ListaDeFilmes.App
 
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddControllersWithViews();
+            // Configurando mensagens de validação do AspNetCore para Português
+            services.AddControllersWithViews(o =>
+            {
+                o.ModelBindingMessageProvider.SetAttemptedValueIsInvalidAccessor((x, y) => "O valor preenchido é inválido para este campo.");
+                o.ModelBindingMessageProvider.SetMissingBindRequiredValueAccessor(x => "Este campo precisa ser preenchido.");
+                o.ModelBindingMessageProvider.SetMissingKeyOrValueAccessor(() => "Este campo precisa ser preenchido.");
+                o.ModelBindingMessageProvider.SetMissingRequestBodyRequiredValueAccessor(() => "É necessário que o body na requisição não esteja vazio.");
+                o.ModelBindingMessageProvider.SetNonPropertyAttemptedValueIsInvalidAccessor(x => "O valor preenchido é inválido para este campo.");
+                o.ModelBindingMessageProvider.SetNonPropertyUnknownValueIsInvalidAccessor(() => "O valor preenchido é inválido para este campo.");
+                o.ModelBindingMessageProvider.SetNonPropertyValueMustBeANumberAccessor(() => "O campo deve ser numérico");
+                o.ModelBindingMessageProvider.SetUnknownValueIsInvalidAccessor(x => "O valor preenchido é inválido para este campo.");
+                o.ModelBindingMessageProvider.SetValueIsInvalidAccessor(x => "O valor preenchido é inválido para este campo.");
+                o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(x => "O campo deve ser numérico.");
+                o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "Este campo precisa ser preenchido.");
+
+                //Validação automatica do Token dos atributos em todas as requisições, sendo assim não necessário inserir o [ValidateAntiForgeryToken] nas Controllers.
+                o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
 
             services.AddRazorPages();
 
             services.AddScoped<ListaDeFilmesContext>();
             services.AddScoped<IFilmeRepository, FilmeRepository>();
             services.AddScoped<IGeneroRepository, GeneroRepository>();
+            services.AddSingleton<IValidationAttributeAdapterProvider, MoedaValidationAttributeAdapterProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +92,16 @@ namespace ListaDeFilmes.App
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // Globalizando a aplicação em pt-BR
+            var defaultCulture = new CultureInfo("pt-BR");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(defaultCulture),
+                SupportedCultures = new List<CultureInfo> { defaultCulture },
+                SupportedUICultures = new List<CultureInfo> { defaultCulture }
+            };
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseEndpoints(endpoints =>
             {
