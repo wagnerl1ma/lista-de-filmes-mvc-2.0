@@ -24,14 +24,12 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
-        // GET: Generos
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos()));
            // return View(await _generoRepository.ObterTodos());
         }
 
-        // GET: Generos/Details/5
         public async Task<IActionResult> Details(Guid id)
         {
             var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
@@ -45,15 +43,11 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
-        // GET: Generos/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Generos/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(GeneroViewModel generoViewModel)
@@ -69,7 +63,6 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
-        // GET: Generos/Edit/5
         public async Task<IActionResult> Edit(Guid id)
         {
             var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
@@ -83,9 +76,6 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
-        // POST: Generos/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel)
@@ -106,7 +96,6 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Generos/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {
             //var generoViewModel = await _generoRepository.ObterPorId(id);
@@ -120,7 +109,6 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
-        // POST: Generos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

@@ -149,6 +149,75 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        //[ClaimsAuthorize("Fornecedor", "Editar")]
+        //[Route("atualizar-endereco-fornecedor/{id:guid}")]
+        public async Task<IActionResult> EditarFilmeModal(Guid id)
+        {
+            var filmeViewModel = await ObterFilmePreenchido(id);
+
+            if (filmeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            //return PartialView("_EditarFilme", new FilmeViewModel { Genero = filme.Genero });
+            return PartialView("_EditarFilme", filmeViewModel);
+        }
+
+        //[ClaimsAuthorize("Fornecedor", "Editar")]
+        //[Route("atualizar-endereco-fornecedor/{id:guid}")]
+        [HttpPost]
+        public async Task<IActionResult> EditarFilmeModal(Guid id, FilmeViewModel filmeViewModel)
+        {
+            if (id != filmeViewModel.Id)
+            {
+                return NotFound();
+            }
+
+            var filmeAtualizacao = await ObterFilmePreenchido(id);
+
+            filmeViewModel.Genero = filmeAtualizacao.Genero;
+            filmeViewModel.Imagem = filmeAtualizacao.Imagem;
+
+            //Ignorando esses dois campos da ModelState para ser válida.
+            ModelState.Remove("Nome");
+            ModelState.Remove("Documento");
+
+            if (!ModelState.IsValid)
+            {
+                return PartialView("_EditarFilme", filmeViewModel);
+            }
+
+            if (filmeViewModel.ImagemUpload != null)
+            {
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(filmeViewModel.ImagemUpload, imgPrefixo))
+                {
+                    return View(filmeViewModel);
+                }
+
+                filmeAtualizacao.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
+            }
+
+            filmeAtualizacao.Nome = filmeViewModel.Nome;
+            filmeAtualizacao.Classificacao = filmeViewModel.Classificacao;
+            filmeAtualizacao.Ano = filmeViewModel.Ano;
+            //filmeAtualizacao.Comentarios = filmeViewModel.Comentarios;
+            filmeAtualizacao.Valor = filmeViewModel.Valor;
+            filmeAtualizacao.Ativo = filmeViewModel.Ativo;
+
+
+            await _filmeRepository.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
+
+            //if (!OperacaoValida())
+            //{
+                return PartialView("_EditarFilme", filmeViewModel);
+            //}
+
+            var url = Url.Action("EditarFilmeModal", "Filmes");
+            return Json(new { success = true, url });
+        }
+
         //GET: Filmes/Delete/5
         public async Task<IActionResult> Delete(Guid id)
         {

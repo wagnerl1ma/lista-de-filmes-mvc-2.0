@@ -1,14 +1,14 @@
 ﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 @*@model ListaDeFilmes.Business.Models.Genero*@
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhe do Gênero - " + Model.Nome;
 }
 
-<h1>Details</h1>
+<h3 style="padding-top: 50px">@ViewData["Title"]</h3>
+<hr />
 
 <div>
-    <h4>GeneroViewModel</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nome)
@@ -18,7 +18,8 @@
         </dd>
     </dl>
 </div>
+
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
+    <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
 </div>

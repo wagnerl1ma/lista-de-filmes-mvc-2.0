@@ -1,12 +1,12 @@
 ﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Gênero";
 }
 
-<h1>Edit</h1>
+<h1 style="padding-top: 20px">@ViewData["Title"] </h1>
 
-<h4>GeneroViewModel</h4>
+<h4>Editar</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,14 +19,11 @@
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
