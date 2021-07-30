@@ -106,28 +106,38 @@
                 </td>
 
                 <td class="text-right">
-                    <a class="btn btn-info" asp-controller="Filmes" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
+                    <a class="btn btn-info" asp-controller="Filmes" asp-action="Details" asp-route-id="@item.Id"><spam title="Detalhes" class="fa fa-search"></spam> </a>
                     <a class="btn btn-warning" asp-controller="Filmes" asp-action="Edit" asp-route-id="@item.Id" data-modal="">
-                        <spam title="EditarFilme" class="fa fa-pencil-alt"></spam>
+                        <spam title="Editar" class="fa fa-pencil-alt"></spam>
                     </a>
-                    <a class="btn btn-danger" asp-controller="Filmes" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                    <a class="btn btn-danger" asp-controller="Filmes" asp-action="Delete" asp-route-id="@item.Id"><spam title="Excluir" class="fa fa-trash"></spam> </a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
-<script>
+    <script>
+        $("#ImagemUpload").change(function () {
+            $("#img_nome").text(this.files[0].name);
+            $("#img_nome")[0].style.display = 'block';
+        });
+    </script>
+
+    <script>
         $(document).ready(function () {
             SetModal();
         });
-</script>
+    </script>
 
-<div id="myModal" class="modal fade in">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div id="myModalContent"></div>
+    <div id="myModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="myModalContent"></div>
+            </div>
         </div>
     </div>
-</div>
+}
