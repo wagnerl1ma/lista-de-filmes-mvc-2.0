@@ -28,13 +28,13 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
-        // GET: Filmes
+        [Route("lista-de-filmes")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<FilmeViewModel>>(await _filmeRepository.ObterFilmesGeneros()));
         }
 
-        // GET: Filmes/Details/5
+        [Route("detalhes-do-filme/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var filmeViewModel = await ObterFilmePreenchido(id);
@@ -47,6 +47,7 @@ namespace ListaDeFilmes.App.Controllers
             return View(filmeViewModel);
         }
 
+        [Route("detalhes-do-filme-modal/{id:guid}")]
         public async Task<IActionResult> DetailsModal(Guid id)
         {
             var filmeViewModel = await ObterFilmePreenchido(id);
@@ -59,18 +60,16 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_DetailsModal", filmeViewModel);
         }
 
-        // GET: Filmes/Create
+        [Route("novo-filme")]
         public async Task<IActionResult> Create()
         {
             var filmeViewModel = await PopularGeneros(new FilmeViewModel());
             return View(filmeViewModel);
         }
 
-        // POST: Filmes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("novo-filme")]
         public async Task<IActionResult> Create(FilmeViewModel filmeViewModel)
         {
             filmeViewModel = await PopularGeneros(filmeViewModel);
@@ -99,7 +98,7 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //GET: Filmes/Edit/5
+        [Route("editar-filme/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var filmeViewModel = await ObterFilmePreenchido(id);
@@ -112,9 +111,9 @@ namespace ListaDeFilmes.App.Controllers
             return View(filmeViewModel);
         }
 
-        //POST: Filmes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("editar-filme/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, FilmeViewModel filmeViewModel)
         {
             if (id != filmeViewModel.Id)
@@ -162,7 +161,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         //[ClaimsAuthorize("Fornecedor", "Editar")]
-        //[Route("atualizar-endereco-fornecedor/{id:guid}")]
+        //[Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id)
         {
             var filmeViewModel = await ObterFilmePreenchido(id);
@@ -172,14 +171,13 @@ namespace ListaDeFilmes.App.Controllers
                 return NotFound();
             }
 
-            //return PartialView("_EditarFilme", new FilmeViewModel { Genero = filme.Genero });
             return PartialView("_EditarFilme", filmeViewModel);
         }
 
-        //[ClaimsAuthorize("Fornecedor", "Editar")]
-        //[Route("atualizar-endereco-fornecedor/{id:guid}")]
+        //[ClaimsAuthorize("Filme", "Editar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id, FilmeViewModel filmeViewModel)
         {
             if (id != filmeViewModel.Id)
@@ -231,6 +229,7 @@ namespace ListaDeFilmes.App.Controllers
             return Json(new { success = true, url });
         }
 
+        [Route("modal-filme")]
         public async Task<IActionResult> ObterFilmesParaModal()
         {
             var filmes = _mapper.Map<IEnumerable<FilmeViewModel>>(await _filmeRepository.ObterFilmesGeneros());
@@ -243,7 +242,7 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_ListaFilmes", filmes);
         }
 
-        //GET: Filmes/Delete/5
+        [Route("excluir-filme/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var filme = await ObterFilmePreenchido(id);
@@ -256,9 +255,10 @@ namespace ListaDeFilmes.App.Controllers
             return View(filme);
         }
 
-        //POST: Filmes/Delete/5
+        
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("excluir-filme/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var filme = await ObterFilmePreenchido(id);
@@ -281,6 +281,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
 
+        [Route("obter-filme-genero/{id:guid}")]
         private async Task<FilmeViewModel> ObterFilmePreenchido(Guid id)
         {
             var filme = _mapper.Map<FilmeViewModel>(await _filmeRepository.ObterFilmeGenero(id));
@@ -289,6 +290,7 @@ namespace ListaDeFilmes.App.Controllers
             return filme;
         }
 
+        [Route("popular-filme-generos/{id:guid}")]
         private async Task<FilmeViewModel> PopularGeneros(FilmeViewModel filme)
         {
             filme.Generos = _mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos());

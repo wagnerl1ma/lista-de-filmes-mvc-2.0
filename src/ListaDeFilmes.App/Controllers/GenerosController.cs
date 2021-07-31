@@ -24,12 +24,14 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
+        [Route("lista-de-generos")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos()));
            // return View(await _generoRepository.ObterTodos());
         }
 
+        [Route("detalhes-do-genero/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
             var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
@@ -43,6 +45,7 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
+        [Route("novo-genero")]
         public IActionResult Create()
         {
             return View();
@@ -50,6 +53,7 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("novo-genero")]
         public async Task<IActionResult> Create(GeneroViewModel generoViewModel)
         {
             if (ModelState.IsValid)
@@ -63,6 +67,7 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
+        [Route("editar-genero/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
             var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
@@ -78,6 +83,7 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("editar-genero/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel)
         {
             if (id != generoViewModel.Id)
@@ -96,6 +102,7 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Route("excluir-genero/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             //var generoViewModel = await _generoRepository.ObterPorId(id);
@@ -111,6 +118,7 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Route("excluir-genero/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var generoViewModel = await _generoRepository.ObterPorId(id);
