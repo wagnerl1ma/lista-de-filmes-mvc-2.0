@@ -47,6 +47,18 @@ namespace ListaDeFilmes.App.Controllers
             return View(filmeViewModel);
         }
 
+        public async Task<IActionResult> DetailsModal(Guid id)
+        {
+            var filmeViewModel = await ObterFilmePreenchido(id);
+
+            if (filmeViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_DetailsModal", filmeViewModel);
+        }
+
         // GET: Filmes/Create
         public async Task<IActionResult> Create()
         {
@@ -167,6 +179,7 @@ namespace ListaDeFilmes.App.Controllers
         //[ClaimsAuthorize("Fornecedor", "Editar")]
         //[Route("atualizar-endereco-fornecedor/{id:guid}")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditarFilmeModal(Guid id, FilmeViewModel filmeViewModel)
         {
             if (id != filmeViewModel.Id)
@@ -193,7 +206,7 @@ namespace ListaDeFilmes.App.Controllers
                 var imgPrefixo = Guid.NewGuid() + "_";
                 if (!await UploadArquivo(filmeViewModel.ImagemUpload, imgPrefixo))
                 {
-                    return View(filmeViewModel);
+                    return PartialView("_EditarFilme", filmeViewModel);
                 }
 
                 filmeAtualizacao.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
@@ -211,11 +224,23 @@ namespace ListaDeFilmes.App.Controllers
 
             //if (!OperacaoValida())
             //{
-                return PartialView("_EditarFilme", filmeViewModel);
+            //return PartialView("_EditarFilme", filmeViewModel);
             //}
 
-            var url = Url.Action("EditarFilmeModal", "Filmes");
+            var url = Url.Action("ObterFilmesParaModal", "Filmes", new { id = filmeViewModel.Id});
             return Json(new { success = true, url });
+        }
+
+        public async Task<IActionResult> ObterFilmesParaModal()
+        {
+            var filmes = _mapper.Map<IEnumerable<FilmeViewModel>>(await _filmeRepository.ObterFilmesGeneros());
+
+            if (filmes == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_ListaFilmes", filmes);
         }
 
         //GET: Filmes/Delete/5
@@ -258,10 +283,10 @@ namespace ListaDeFilmes.App.Controllers
 
         private async Task<FilmeViewModel> ObterFilmePreenchido(Guid id)
         {
-            var produto = _mapper.Map<FilmeViewModel>(await _filmeRepository.ObterFilmeGenero(id));
-            produto.Generos = _mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos());
+            var filme = _mapper.Map<FilmeViewModel>(await _filmeRepository.ObterFilmeGenero(id));
+            filme.Generos = _mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos());
 
-            return produto;
+            return filme;
         }
 
         private async Task<FilmeViewModel> PopularGeneros(FilmeViewModel filme)

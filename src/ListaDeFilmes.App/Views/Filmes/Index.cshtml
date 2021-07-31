@@ -7,10 +7,41 @@
 <h1>@ViewData["Title"]</h1>
 <hr />
 
+
 <vc:Summary></vc:Summary>
 
 <p>
     <a class="btn btn-info" asp-action="Create">Novo Filme</a>
 </p>
 
-<partial name="_ListaFilmes" />
+<div id="FilmeTarget">
+    <partial name="_ListaFilmes" />
+</div>
+
+    
+
+<div id="myModal" class="modal fade in">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="myModalContent"></div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $("#ImagemUpload").change(function () {
+            $("#img_nome").text(this.files[0].name);
+            $("#img_nome")[0].style.display = 'block';
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            SetModal();
+        });
+    </script>
+}

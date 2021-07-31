@@ -29,7 +29,7 @@ function bindForm(dialog) {
             success: function (result) {
                 if (result.success) {
                     $('#myModal').modal('hide');
-                    $('#FilmeTarget').load(result.url); // Carrega o resultado HTML para a div demarcada
+                    $('#FilmeTarget').load(result.url); // Carrega o resultado HTML para a div demarcada com o Id="EnderecoTarget"
                 } else {
                     $('#myModalContent').html(result);
                     bindForm(dialog);
@@ -41,3 +41,8 @@ function bindForm(dialog) {
         return false;
     });
 }
+
+
+//$(document).ready(function () {
+//    $("#msg_box").fadeOut(2500);
+//});

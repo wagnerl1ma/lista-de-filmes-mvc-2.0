@@ -11,6 +11,7 @@
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
 
+
             <th>
                 @Html.DisplayNameFor(model => model.Genero)
             </th>
@@ -106,8 +107,8 @@
                 </td>
 
                 <td class="text-right">
-                    <a class="btn btn-info" asp-controller="Filmes" asp-action="Details" asp-route-id="@item.Id"><spam title="Detalhes" class="fa fa-search"></spam> </a>
-                    <a class="btn btn-warning" asp-controller="Filmes" asp-action="Edit" asp-route-id="@item.Id" data-modal="">
+                    <a class="btn btn-info" asp-controller="Filmes" asp-action="DetailsModal" asp-route-id="@item.Id" data-modal=""><spam title="Detalhes" class="fa fa-search"></spam> </a>
+                    <a class="btn btn-warning" asp-controller="Filmes" asp-action="Edit" asp-route-id="@item.Id">
                         <spam title="Editar" class="fa fa-pencil-alt"></spam>
                     </a>
                     <a class="btn btn-danger" asp-controller="Filmes" asp-action="Delete" asp-route-id="@item.Id"><spam title="Excluir" class="fa fa-trash"></spam> </a>
@@ -116,6 +117,7 @@
         }
     </tbody>
 </table>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -126,18 +128,4 @@
             $("#img_nome")[0].style.display = 'block';
         });
     </script>
-
-    <script>
-        $(document).ready(function () {
-            SetModal();
-        });
-    </script>
-
-    <div id="myModal" class="modal fade in">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div id="myModalContent"></div>
-            </div>
-        </div>
-    </div>
 }
