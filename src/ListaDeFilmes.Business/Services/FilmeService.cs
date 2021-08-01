@@ -11,34 +11,50 @@ namespace ListaDeFilmes.Business.Services
     public class FilmeService : BaseService, IFilmeService
     {
         private readonly IFilmeRepository _filmeRepository;
+        private readonly IGeneroRepository _generoRepository;
 
-        public FilmeService(IFilmeRepository filmeRepository, INotificador notificador) : base(notificador)
+        public FilmeService(IFilmeRepository filmeRepository, IGeneroRepository generoRepository, INotificador notificador) : base(notificador)
         {
             _filmeRepository = filmeRepository;
+            _generoRepository = generoRepository;
         }
 
         public async Task Adicionar(Filme filme)
         {
             //se a Validação não for valida, retorna a notificação e nao faz a adição
-            if (!ExecutarValidacao(new FilmeValidation(), filme)
-                || !ExecutarValidacao(new GeneroValidation(), filme.Genero)) return;
+            if (!ExecutarValidacao(new FilmeValidation(), filme)) return;
 
             await _filmeRepository.Adicionar(filme);
         }
 
-        public Task Atualizar(Filme filme)
+        public async Task Atualizar(Filme filme)
         {
-            throw new NotImplementedException();
+            if (!ExecutarValidacao(new FilmeValidation(), filme)
+                || !ExecutarValidacao(new GeneroValidation(), filme.Genero)) return;
+
+            filme.Genero = await _generoRepository.ObterPorId(filme.GeneroId);
+
+            await _filmeRepository.Atualizar(filme);
         }
 
-        public Task AtualizarGenero(Genero genero)
+        public async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
+            await _filmeRepository.Remover(id);
         }
 
-        public Task Remover(Guid id)
+        //public async Task<Filme> ObterFilmePreenchido(Guid id)
+        //{
+        //    var filme = await _filmeRepository.ObterFilmeGenero(id);
+        //    filme.Genero = await _generoRepository.ObterPorId(filme.GeneroId);
+
+        //    return filme;
+        //}
+
+        public void Dispose()
         {
-            throw new NotImplementedException();
+            //? = Se ele existir faça o Dispose, se nao exister não faça
+            _filmeRepository?.Dispose();
+            _generoRepository?.Dispose();
         }
     }
 }

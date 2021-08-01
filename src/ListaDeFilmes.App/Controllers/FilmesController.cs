@@ -18,13 +18,19 @@ namespace ListaDeFilmes.App.Controllers
     public class FilmesController : BaseController
     {
         private readonly IFilmeRepository _filmeRepository;
+        private readonly IFilmeService _filmeService;
         private readonly IGeneroRepository _generoRepository;
         private readonly IMapper _mapper;
 
-        public FilmesController(IFilmeRepository filmeRepository, IGeneroRepository generoRepository, IMapper mapper)
+        public FilmesController(IFilmeRepository filmeRepository,
+                                IGeneroRepository generoRepository,
+                                IFilmeService filmeService,
+                                IMapper mapper,
+                                INotificador notificador) : base(notificador)
         {
             _filmeRepository = filmeRepository;
             _generoRepository = generoRepository;
+            _filmeService = filmeService;
             _mapper = mapper;
         }
 
@@ -88,12 +94,12 @@ namespace ListaDeFilmes.App.Controllers
 
             filmeViewModel.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
 
-            await _filmeRepository.Adicionar(_mapper.Map<Filme>(filmeViewModel));
+            await _filmeService.Adicionar(_mapper.Map<Filme>(filmeViewModel));
 
-            //if (!OperacaoValida())
-            //{
-            //    return View(filmeViewModel);
-            //}
+            if (!OperacaoValida())
+            {
+                return View(filmeViewModel);
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -142,6 +148,7 @@ namespace ListaDeFilmes.App.Controllers
                 filmeAtualizacao.Imagem = imgPrefixo + filmeViewModel.ImagemUpload.FileName;
             }
 
+            filmeAtualizacao.GeneroId = filmeViewModel.GeneroId;
             filmeAtualizacao.Nome = filmeViewModel.Nome;
             filmeAtualizacao.Classificacao = filmeViewModel.Classificacao;
             filmeAtualizacao.Ano = filmeViewModel.Ano;
@@ -150,18 +157,19 @@ namespace ListaDeFilmes.App.Controllers
             filmeAtualizacao.Ativo = filmeViewModel.Ativo;
 
 
-            await _filmeRepository.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
+            await _filmeService.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
+            //await _filmeRepository.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
 
-            //if (!OperacaoValida())
-            //{
-            //    return View(filmeViewModel);
-            //}
+            if (!OperacaoValida())
+            {
+                return View(filmeAtualizacao);
+            }
 
             return RedirectToAction(nameof(Index));
         }
 
         //[ClaimsAuthorize("Fornecedor", "Editar")]
-        //[Route("editar-filme-modal/{id:guid}")]
+        [Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id)
         {
             var filmeViewModel = await ObterFilmePreenchido(id);
@@ -177,7 +185,7 @@ namespace ListaDeFilmes.App.Controllers
         //[ClaimsAuthorize("Filme", "Editar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Route("editar-filme-modal/{id:guid}")]
+        [Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id, FilmeViewModel filmeViewModel)
         {
             if (id != filmeViewModel.Id)
@@ -218,12 +226,12 @@ namespace ListaDeFilmes.App.Controllers
             filmeAtualizacao.Ativo = filmeViewModel.Ativo;
 
 
-            await _filmeRepository.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
+            await _filmeService.Atualizar(_mapper.Map<Filme>(filmeAtualizacao));
 
-            //if (!OperacaoValida())
-            //{
-            //return PartialView("_EditarFilme", filmeViewModel);
-            //}
+            if (!OperacaoValida())
+            {
+                return PartialView("_EditarFilme", filmeViewModel);
+            }
 
             var url = Url.Action("ObterFilmesParaModal", "Filmes", new { id = filmeViewModel.Id});
             return Json(new { success = true, url });
@@ -268,14 +276,14 @@ namespace ListaDeFilmes.App.Controllers
                 return NotFound();
             }
 
-            await _filmeRepository.Remover(id);
+            await _filmeService.Remover(id);
 
-            //if (!OperacaoValida())
-            //{
-            //    return View(filme);
-            //}
+            if (!OperacaoValida())
+            {
+                return View(filme);
+            }
 
-            //TempData["Sucesso"] = "Produto excluido com sucesso!";
+            TempData["Sucesso"] = "Filme excluido com sucesso!";
 
             return RedirectToAction(nameof(Index));
         }

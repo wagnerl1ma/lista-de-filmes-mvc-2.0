@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ListaDeFilmes.Business.Interfaces
 {
-    public interface IFilmeService
+    public interface IFilmeService : IDisposable
     {
         Task Adicionar(Filme fornecedor);
         Task Atualizar(Filme fornecedor);
         Task Remover(Guid id);
-
-        Task AtualizarGenero(Genero genero);
+        //Task<Filme> ObterFilmePreenchido(Guid id);
     }
 }

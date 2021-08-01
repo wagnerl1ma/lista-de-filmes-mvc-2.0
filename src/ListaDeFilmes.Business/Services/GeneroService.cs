@@ -24,14 +24,23 @@ namespace ListaDeFilmes.Business.Services
             await _generoRepository.Adicionar(genero);
         }
 
-        public Task Atualizar(Genero fornecedor)
+        public async Task Atualizar(Genero genero)
         {
-            throw new NotImplementedException();
+            //se a Validação não for valida, retorna e nao faz a atualização
+            if (!ExecutarValidacao(new GeneroValidation(), genero)) return;
+
+            await _generoRepository.Atualizar(genero);
         }
 
-        public Task Remover(Guid id)
+        public async Task Remover(Guid id)
         {
-            throw new NotImplementedException();
+            await _generoRepository.Remover(id);
+        }
+
+        public void Dispose()
+        {
+            //? = Se ele existir faça o Dispose, se nao exister não faça
+            _generoRepository?.Dispose();
         }
     }
 }

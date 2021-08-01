@@ -16,11 +16,16 @@ namespace ListaDeFilmes.App.Controllers
     public class GenerosController : BaseController
     {
         private readonly IGeneroRepository _generoRepository;
+        private readonly IGeneroService _generoService;
         private readonly IMapper _mapper;
 
-        public GenerosController(IGeneroRepository generoRepository, IMapper mapper)
+        public GenerosController(IGeneroRepository generoRepository, 
+                                 IGeneroService generoService, 
+                                 IMapper mapper, 
+                                 INotificador notificador) : base(notificador)
         {
             _generoRepository = generoRepository;
+            _generoService = generoService;
             _mapper = mapper;
         }
 
@@ -59,12 +64,16 @@ namespace ListaDeFilmes.App.Controllers
             if (ModelState.IsValid)
             {
                 var genero = _mapper.Map<Genero>(generoViewModel);
-                await _generoRepository.Adicionar(genero);
+                await _generoService.Adicionar(genero);
 
-                return RedirectToAction(nameof(Index));
             }
 
-            return View(generoViewModel);
+            if (!OperacaoValida())
+            {
+                return View(generoViewModel);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         [Route("editar-genero/{id:guid}")]
@@ -97,7 +106,12 @@ namespace ListaDeFilmes.App.Controllers
             }
 
             var genero = _mapper.Map<Genero>(generoViewModel);
-            await _generoRepository.Atualizar(genero);
+            await _generoService.Atualizar(genero);
+
+            if (!OperacaoValida())
+            {
+                return View(generoViewModel);
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -128,7 +142,14 @@ namespace ListaDeFilmes.App.Controllers
                 return NotFound();
             }
 
-            await _generoRepository.Remover(id);
+            await _generoService.Remover(id);
+
+            if (!OperacaoValida())
+            {
+                return View(generoViewModel);
+            }
+
+            TempData["Sucesso"] = "Gênero excluido com sucesso!";
 
             return RedirectToAction(nameof(Index));
         }
