@@ -50,6 +50,20 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
+        [Route("detalhes-do-genero-modal/{id:guid}")]
+        public async Task<IActionResult> DetailsModal(Guid id)
+        {
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            //var generoViewModel = await _generoRepository.ObterPorId(id);
+
+            if (generoViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return PartialView("_DetailsModal", generoViewModel);
+        }
+
         [Route("novo-genero")]
         public IActionResult Create()
         {
