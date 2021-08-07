@@ -108,10 +108,10 @@
 
                 <td class="text-right">
                     <a class="btn btn-info" asp-controller="Filmes" asp-action="DetailsModal" asp-route-id="@item.Id" data-modal=""><spam title="Detalhes" class="fa fa-search"></spam> </a>
-                    <a class="btn btn-warning" asp-controller="Filmes" asp-action="Edit" asp-route-id="@item.Id">
+                    <a class="btn btn-warning" disable-by-claim-name="Filmes" disable-by-claim-value="Editar" asp-controller="Filmes" asp-action="Edit" asp-route-id="@item.Id">
                         <spam title="Editar" class="fa fa-pencil-alt"></spam>
                     </a>
-                    <a class="btn btn-danger" asp-controller="Filmes" asp-action="Delete" asp-route-id="@item.Id"><spam title="Excluir" class="fa fa-trash"></spam> </a>
+                    <a class="btn btn-danger" disable-by-claim-name="Filmes" disable-by-claim-value="Excluir" asp-controller="Filmes" asp-action="Delete" asp-route-id="@item.Id"><spam title="Excluir" class="fa fa-trash"></spam> </a>
                 </td>
             </tr>
         }

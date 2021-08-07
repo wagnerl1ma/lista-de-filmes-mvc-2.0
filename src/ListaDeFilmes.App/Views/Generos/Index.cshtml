@@ -10,7 +10,7 @@
 <vc:Summary></vc:Summary>
 
 <p>
-    <a class="btn btn-info" asp-action="Create">Novo Gênero</a>
+    <a class="btn btn-info" disable-by-claim-name="Generos" disable-by-claim-value="Adicionar" asp-action="Create">Novo Gênero</a>
 </p>
 
 <div id="FilmeTarget">
@@ -33,8 +33,8 @@
                     <td class="text-right">
                         <a class="btn btn-info" asp-controller="Generos" asp-action="DetailsModal" asp-route-id="@item.Id" data-modal=""><spam title="Detalhes" class="fa fa-search"></spam> </a>
                         @*<a class="btn btn-info" asp-controller="Generos" asp-action="DetailsModal" asp-route-id="@item.Id "><spam class="fa fa-search"></spam> </a>*@
-                        <a class="btn btn-warning" asp-controller="Generos" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
-                        <a class="btn btn-danger" asp-controller="Generos" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                        <a class="btn btn-warning" disable-by-claim-name="Generos" disable-by-claim-value="Editar" asp-controller="Generos" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                        <a class="btn btn-danger" disable-by-claim-name="Generos" disable-by-claim-value="Excluir" asp-controller="Generos" asp-action="Delete" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
                     </td>
                 </tr>
             }

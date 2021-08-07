@@ -10,9 +10,12 @@ using ListaDeFilmes.App.ViewModels;
 using ListaDeFilmes.Business.Interfaces;
 using AutoMapper;
 using ListaDeFilmes.Business.Models;
+using Microsoft.AspNetCore.Authorization;
+using ListaDeFilmes.App.Extensions;
 
 namespace ListaDeFilmes.App.Controllers
 {
+    [Authorize]
     public class GenerosController : BaseController
     {
         private readonly IGeneroRepository _generoRepository;
@@ -29,6 +32,7 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [Route("lista-de-generos")]
         public async Task<IActionResult> Index()
         {
@@ -36,6 +40,7 @@ namespace ListaDeFilmes.App.Controllers
            // return View(await _generoRepository.ObterTodos());
         }
 
+        [AllowAnonymous]
         [Route("detalhes-do-genero/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -50,6 +55,7 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
+        [AllowAnonymous]
         [Route("detalhes-do-genero-modal/{id:guid}")]
         public async Task<IActionResult> DetailsModal(Guid id)
         {
@@ -64,6 +70,7 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_DetailsModal", generoViewModel);
         }
 
+        [ClaimsAuthorize("Generos", "Adicionar")]
         [Route("novo-genero")]
         public IActionResult Create()
         {
@@ -71,6 +78,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         [HttpPost]
+        [ClaimsAuthorize("Generos", "Adicionar")]
         [ValidateAntiForgeryToken]
         [Route("novo-genero")]
         public async Task<IActionResult> Create(GeneroViewModel generoViewModel)
@@ -90,6 +98,7 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [ClaimsAuthorize("Generos", "Editar")]
         [Route("editar-genero/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -105,6 +114,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         [HttpPost]
+        [ClaimsAuthorize("Generos", "Editar")]
         [ValidateAntiForgeryToken]
         [Route("editar-genero/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel)
@@ -130,6 +140,7 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [ClaimsAuthorize("Generos", "Excluir")]
         [Route("excluir-genero/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -145,6 +156,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ClaimsAuthorize("Generos", "Excluir")]
         [ValidateAntiForgeryToken]
         [Route("excluir-genero/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)

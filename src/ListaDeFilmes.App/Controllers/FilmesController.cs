@@ -12,9 +12,12 @@ using AutoMapper;
 using ListaDeFilmes.Business.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using ListaDeFilmes.App.Extensions;
 
 namespace ListaDeFilmes.App.Controllers
 {
+    [Authorize]
     public class FilmesController : BaseController
     {
         private readonly IFilmeRepository _filmeRepository;
@@ -34,12 +37,14 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
         [Route("lista-de-filmes")]
         public async Task<IActionResult> Index()
         {
             return View(_mapper.Map<IEnumerable<FilmeViewModel>>(await _filmeRepository.ObterFilmesGeneros()));
         }
 
+        [AllowAnonymous]
         [Route("detalhes-do-filme/{id:guid}")]
         public async Task<IActionResult> Details(Guid id)
         {
@@ -53,6 +58,7 @@ namespace ListaDeFilmes.App.Controllers
             return View(filmeViewModel);
         }
 
+        [AllowAnonymous]
         [Route("detalhes-do-filme-modal/{id:guid}")]
         public async Task<IActionResult> DetailsModal(Guid id)
         {
@@ -66,6 +72,7 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_DetailsModal", filmeViewModel);
         }
 
+        [ClaimsAuthorize("Filmes", "Adicionar")]
         [Route("novo-filme")]
         public async Task<IActionResult> Create()
         {
@@ -74,6 +81,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         [HttpPost]
+        [ClaimsAuthorize("Filmes", "Adicionar")]
         [ValidateAntiForgeryToken]
         [Route("novo-filme")]
         public async Task<IActionResult> Create(FilmeViewModel filmeViewModel)
@@ -104,6 +112,8 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        [ClaimsAuthorize("Filmes", "Editar")]
         [Route("editar-filme/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -118,6 +128,7 @@ namespace ListaDeFilmes.App.Controllers
         }
 
         [HttpPost]
+        [ClaimsAuthorize("Filmes", "Editar")]
         [ValidateAntiForgeryToken]
         [Route("editar-filme/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, FilmeViewModel filmeViewModel)
@@ -168,7 +179,7 @@ namespace ListaDeFilmes.App.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //[ClaimsAuthorize("Fornecedor", "Editar")]
+        //[ClaimsAuthorize("Filmes", "Editar")]
         [Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id)
         {
@@ -182,7 +193,7 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_EditarFilme", filmeViewModel);
         }
 
-        //[ClaimsAuthorize("Filme", "Editar")]
+        //[ClaimsAuthorize("Filmes", "Editar")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("editar-filme-modal/{id:guid}")]
@@ -250,6 +261,7 @@ namespace ListaDeFilmes.App.Controllers
             return PartialView("_ListaFilmes", filmes);
         }
 
+        [ClaimsAuthorize("Filmes", "Excluir")]
         [Route("excluir-filme/{id:guid}")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -265,6 +277,7 @@ namespace ListaDeFilmes.App.Controllers
 
         
         [HttpPost, ActionName("Delete")]
+        [ClaimsAuthorize("Filmes", "Excluir")]
         [ValidateAntiForgeryToken]
         [Route("excluir-filme/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
