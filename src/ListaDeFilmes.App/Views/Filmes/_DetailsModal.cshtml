@@ -13,7 +13,7 @@
 
 <form enctype="multipart/form-data" asp-action="DetailsModal">
     <div class="modal-body">
-        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 428px"/>
+        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 428px" />
         <dl>
             <dt>
                 @Html.DisplayNameFor(model => model.Nome)
@@ -39,12 +39,6 @@
             <dd>
                 @Html.DisplayFor(model => model.Ano)
             </dd>
-            @*<dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Comentarios)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Comentarios)
-                </dd>*@
             <dt>
                 @Html.DisplayNameFor(model => model.Imagem)
             </dt>
@@ -63,7 +57,7 @@
             <dd>
                 @Html.DisplayFor(model => model.Genero.Nome)
             </dd>
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Diretor)
             </dt>
             <dd>
@@ -74,6 +68,12 @@
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Produtora.Id)
+            </dd>*@
+            <dt>
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comentarios)
             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.Ativo)

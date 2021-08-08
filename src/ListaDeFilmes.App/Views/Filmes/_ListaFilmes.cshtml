@@ -20,7 +20,7 @@
                     @Html.DisplayNameFor(model => model.DataCadastro)
                 </th>*@
 
-            <th>
+            <th class="col-sm-1">
                 @Html.DisplayNameFor(model => model.Classificacao)
             </th>
 
@@ -28,27 +28,25 @@
                 @Html.DisplayNameFor(model => model.Ano)
             </th>
 
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Comentarios)
-                </th>*@
-
             <th>
                 @Html.DisplayNameFor(model => model.Valor)
             </th>
 
-            <th>
+            <th class="col-sm-3">
+                @Html.DisplayNameFor(model => model.Comentarios)
+            </th>
+
+            <th class="text-center">
                 @Html.DisplayNameFor(model => model.Ativo)
             </th>
 
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Diretor)
+                </th>
 
-
-            <th>
-                @Html.DisplayNameFor(model => model.Diretor)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Produtora)
-            </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Produtora)
+                </th>*@
             <th></th>
         </tr>
     </thead>
@@ -81,10 +79,6 @@
                 </td>
 
                 @*<td>
-                            @Html.DisplayFor(modelItem => item.Comentarios)
-                    </td>*@
-
-                @*<td>
                             @Html.DisplayFor(modelItem => item.Imagem)
                     </td>*@
 
@@ -92,19 +86,22 @@
                     @item.Valor.ToString("C2").Replace("$", "$ ")  @*//formato moeda pt-BR com duas casas decimais*@
                 </td>
 
-                <td>
+                <td id="quebra-txt">
+                    @Html.DisplayFor(modelItem => item.Comentarios)
+                </td>
+
+
+                <td class="text-center">
                     @Html.DisplayFor(modelItem => item.Ativo)
                 </td>
 
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Diretor.Nome)
+                    </td>
 
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Diretor.Nome)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Produtora.Nome)
-                </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Produtora.Nome)
+                    </td>*@
 
                 <td class="text-right">
                     <a class="btn btn-info" asp-controller="Filmes" asp-action="DetailsModal" asp-route-id="@item.Id" data-modal=""><spam title="Detalhes" class="fa fa-search"></spam> </a>

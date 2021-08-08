@@ -76,3 +76,7 @@ file,
 textarea {
     max-width: 400px;
 }
+
+#quebra-txt tr td {
+    white-space: pre-wrap;
+}

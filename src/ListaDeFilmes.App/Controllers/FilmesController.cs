@@ -163,7 +163,7 @@ namespace ListaDeFilmes.App.Controllers
             filmeAtualizacao.Nome = filmeViewModel.Nome;
             filmeAtualizacao.Classificacao = filmeViewModel.Classificacao;
             filmeAtualizacao.Ano = filmeViewModel.Ano;
-            //filmeAtualizacao.Comentarios = filmeViewModel.Comentarios;
+            filmeAtualizacao.Comentarios = filmeViewModel.Comentarios;
             filmeAtualizacao.Valor = filmeViewModel.Valor;
             filmeAtualizacao.Ativo = filmeViewModel.Ativo;
 

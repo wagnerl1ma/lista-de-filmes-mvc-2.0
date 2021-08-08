@@ -32,7 +32,8 @@ namespace ListaDeFilmes.App.ViewModels
 
         public int? Ano { get; set; }
 
-        [Display(Name = "Comentários")]
+        [Display(Name = "Descrição")]
+        [StringLength(300, MinimumLength = 2, ErrorMessage = "O tamanho do {0} deve ser entre {2} e {1} caracteres!")]   //  0 = nome, 2 = tamanho minimo, 1 = tamanho máximo
         public string Comentarios { get; set; }
 
         [Display(Name = "Imagem do Produto")]
