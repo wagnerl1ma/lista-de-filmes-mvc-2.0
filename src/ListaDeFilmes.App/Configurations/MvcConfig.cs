@@ -27,7 +27,7 @@ namespace ListaDeFilmes.App.Configurations
                 o.ModelBindingMessageProvider.SetValueMustBeANumberAccessor(x => "O campo deve ser numérico.");
                 o.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(x => "Este campo precisa ser preenchido.");
 
-                //Validação automatica do Token dos atributos em todas as requisições, sendo assim não necessário inserir o [ValidateAntiForgeryToken] nas Controllers.
+                //Validação automatica do Token dos atributos em todas as requisições, sendo assim não é necessário inserir o [ValidateAntiForgeryToken] nas Controllers.
                 o.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 

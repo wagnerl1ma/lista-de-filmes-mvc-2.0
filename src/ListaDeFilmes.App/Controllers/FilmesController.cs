@@ -82,7 +82,6 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ClaimsAuthorize("Filmes", "Adicionar")]
-        [ValidateAntiForgeryToken]
         [Route("novo-filme")]
         public async Task<IActionResult> Create(FilmeViewModel filmeViewModel)
         {
@@ -129,7 +128,6 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ClaimsAuthorize("Filmes", "Editar")]
-        [ValidateAntiForgeryToken]
         [Route("editar-filme/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, FilmeViewModel filmeViewModel)
         {
@@ -195,7 +193,6 @@ namespace ListaDeFilmes.App.Controllers
 
         //[ClaimsAuthorize("Filmes", "Editar")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         [Route("editar-filme-modal/{id:guid}")]
         public async Task<IActionResult> EditarFilmeModal(Guid id, FilmeViewModel filmeViewModel)
         {
@@ -278,7 +275,6 @@ namespace ListaDeFilmes.App.Controllers
         
         [HttpPost, ActionName("Delete")]
         [ClaimsAuthorize("Filmes", "Excluir")]
-        [ValidateAntiForgeryToken]
         [Route("excluir-filme/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {

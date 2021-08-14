@@ -79,7 +79,6 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ClaimsAuthorize("Generos", "Adicionar")]
-        [ValidateAntiForgeryToken]
         [Route("novo-genero")]
         public async Task<IActionResult> Create(GeneroViewModel generoViewModel)
         {
@@ -115,7 +114,6 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost]
         [ClaimsAuthorize("Generos", "Editar")]
-        [ValidateAntiForgeryToken]
         [Route("editar-genero/{id:guid}")]
         public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel)
         {
@@ -157,7 +155,6 @@ namespace ListaDeFilmes.App.Controllers
 
         [HttpPost, ActionName("Delete")]
         [ClaimsAuthorize("Generos", "Excluir")]
-        [ValidateAntiForgeryToken]
         [Route("excluir-genero/{id:guid}")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
