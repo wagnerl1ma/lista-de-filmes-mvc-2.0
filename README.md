@@ -1,23 +1,29 @@
 # Lista de Filmes
 Lista de Filmes 2.0 com ASP.NET Core
 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/LICENSE) 
-
 # Sobre o projeto
 
 A ideia da criação do projeto Lista de Filmes foi para treinar e revisar meus conhecimentos adquiridos no curso da 
 plataforma desenvolvedor.io com a junção dos meus conhecimentos já adquiridos em outros cursos e pesquisas.
 
-Link do curso: https://desenvolvedor.io/....
+Link do curso: https://desenvolvedor.io/curso-online-dominando-o-asp-net-mvc-core
 
-### Resumo sobre o que foi feito: -- Atualizar ***
-- Login e Autenticação com Json Web Token (JWT)
-- Autorização baseada em Claims via JWT
-- Documentação da API com Swagger 
-- Versionamento da API com Swagger 
-- Validação de saúde da API com Health Checks
-- Injeção de dependência
-- Respostas Personalizadas
+### Resumo sobre o que foi feito:
+
+- Separação do projeto em camadas
+- Isolamento das regras de negócio
+- Lançamento de eventos
+- Segurança e Autorização baseada em Claims
+- Validações de dados no front-end e back-end
+- Partial Views
+- Customização de Tag Helpers com Razor
+- Upload e Update de imagens
+- Detalhes dos filmes e gêneros com Modal Windows
+- Criação de Data Notation personalizada
+- Migrations com Entity Framework Core
+- Injeção de Dependência
+- Globalização da aplicação em pt-BR
+- Respostas e mensagens personalizadas
 
 ## Layout web
 ![Img 1](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img1.png)
@@ -33,14 +39,14 @@ Link do curso: https://desenvolvedor.io/....
 ![Diagrama](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img2_diagrama.png)
 
 # Tecnologias utilizadas
-## Back end - Atualizar ***
+## Back end
 - C#
 - .net Core 3.1
 - Identity (Login e Claims)
-- Swagger 
-- JSON Web Token (JWT)
+- Entity Framework Core
+- Razor
+- JQuery
 - Auto Mapper
-- CORS - Cross-Origin Resource Sharing
 ## Front end
 - HTML / CSS / JS
 ## Banco de Dados
