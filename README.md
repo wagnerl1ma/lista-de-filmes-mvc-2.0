@@ -19,13 +19,15 @@ Link do curso: https://desenvolvedor.io/....
 - Injeção de dependência
 - Respostas Personalizadas
 
-## Layout web com Swagger
-![Img 1](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img3_swagger.png)
-![Img 2](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img4_swagger_get.png)
-![Img 3](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img5_swagger_post.png)
+## Layout web
+![Img 1](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img1.png)
+![Img 2](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img2.png)
+![Img 3](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img3.png)
+![Img 4](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img4.png)
+![Img 5](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_login1e2_img7.png)
 
 ## Projeto no Visual Studio
-![Img 4](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img1.png)
+![Img 4](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img8.png)
 
 ## Diagrama Banco de Dados
 ![Diagrama](https://github.com/wagnerl1ma/API_ListaDeFilmes/blob/master/docs/imagens/api_filmes_img2_diagrama.png)
@@ -46,7 +48,7 @@ Link do curso: https://desenvolvedor.io/....
 
 ```bash
 # clonar repositório
-git clone https://github.com/wagnerl1ma/..... Atualizar ***
+git clone https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0.git
 
 # Autor
 
