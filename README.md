@@ -25,7 +25,7 @@ Link do curso: https://desenvolvedor.io/curso-online-dominando-o-asp-net-mvc-cor
 - Globalização da aplicação em pt-BR
 - Respostas e mensagens personalizadas
 
-## Layout web
+## Layout Web
 ![Img 1](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img1.png)
 ![Img 2](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img2.png)
 ![Img 3](https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0/blob/master/docs/imagens/lista_fillmes_img3.png)
