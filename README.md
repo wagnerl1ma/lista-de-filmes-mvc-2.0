@@ -54,7 +54,7 @@ Link do curso: https://desenvolvedor.io/curso-online-dominando-o-asp-net-mvc-cor
 
 ```bash
 # clonar repositório
-git clone https://github.com/wagnerl1ma/ListaDeFilmes_MVC-2.0.git
+git clone https://github.com/wagnerl1ma/lista-de-filmes-mvc-2.0.git
 
 # Autor
 
