@@ -16,6 +16,12 @@ builder.Configuration
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
     .AddEnvironmentVariables();
 
+// Adicionando suporte ao secrets apenas em ambiente de produção, retire este IF se deseja aplicar os secrets para qualquer ambiente.
+if (builder.Environment.IsProduction())
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
+
 // ConfigureServices
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 
