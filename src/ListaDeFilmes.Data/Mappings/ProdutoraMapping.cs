@@ -1,9 +1,6 @@
 ﻿using ListaDeFilmes.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ListaDeFilmes.Data.Mappings
 {
@@ -18,7 +15,6 @@ namespace ListaDeFilmes.Data.Mappings
             builder.Property(p => p.Id).HasColumnName("Id_Produtora").IsRequired();
 
             builder.Property(p => p.Nome).HasColumnName("Nome_Produtora").HasColumnType("varchar(100)").IsRequired();
-
 
             //Uma produtora tem muitos filmes
             builder.HasMany(p => p.Filmes);

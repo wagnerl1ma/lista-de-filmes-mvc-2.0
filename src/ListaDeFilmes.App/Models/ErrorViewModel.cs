@@ -1,5 +1,3 @@
-using System;
-
 namespace ListaDeFilmes.App.Models
 {
     public class ErrorViewModel

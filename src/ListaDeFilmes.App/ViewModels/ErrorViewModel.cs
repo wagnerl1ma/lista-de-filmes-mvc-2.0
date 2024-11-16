@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ListaDeFilmes.App.ViewModels
+﻿namespace ListaDeFilmes.App.ViewModels
 {
     public class ErrorViewModel
     {

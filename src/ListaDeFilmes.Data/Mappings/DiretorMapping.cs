@@ -1,9 +1,6 @@
 ﻿using ListaDeFilmes.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ListaDeFilmes.Data.Mappings
 {
@@ -21,7 +18,6 @@ namespace ListaDeFilmes.Data.Mappings
 
             //Um diretor pode ter muitos filmes
             builder.HasMany(d => d.Filmes);
-
         }
     }
 }

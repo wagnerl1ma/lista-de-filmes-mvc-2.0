@@ -1,9 +1,6 @@
 ﻿using ListaDeFilmes.Business.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ListaDeFilmes.Data.Mappings
 {
@@ -45,7 +42,6 @@ namespace ListaDeFilmes.Data.Mappings
             builder.HasOne(f => f.Genero).WithMany(g => g.Filmes).HasForeignKey(f => f.GeneroId);  // Um Filme só pode ter um Genero e um Genero pode ter muitos filmes
             builder.HasOne(f => f.Diretor).WithMany(d => d.Filmes).HasForeignKey(f => f.DiretorId);  // Um Filme só pode ter um Diretor e um Diretor pode ter vários filmes
             builder.HasOne(f => f.Produtora).WithMany(p => p.Filmes).HasForeignKey(f => f.ProdutoraId); // Um Filme só pode ter uma Produtora e uma Produtora pode ter vários filmes
-
         }
     }
 }

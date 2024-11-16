@@ -1,5 +1,4 @@
-﻿
-namespace ListaDeFilmes.Business.Notificacoes
+﻿namespace ListaDeFilmes.Business.Notificacoes
 {
     public class Notificacao
     {
@@ -9,6 +8,5 @@ namespace ListaDeFilmes.Business.Notificacoes
         {
             Mensagem = mensagem;
         }
-
     }
 }
