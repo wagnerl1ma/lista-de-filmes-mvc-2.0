@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.App.Configurations
 {
@@ -11,6 +7,8 @@ namespace ListaDeFilmes.App.Configurations
     {
         public static IServiceCollection AddMvcConfiguration(this IServiceCollection services)
         {
+            // Adicionando a tela de erro de banco de dados (para desenvolvimento)
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             // Configurando mensagens de validação do AspNetCore para Português
             services.AddControllersWithViews(o =>
