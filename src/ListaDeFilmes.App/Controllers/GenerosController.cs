@@ -1,13 +1,10 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ListaDeFilmes.App.Extensions;
 using ListaDeFilmes.App.ViewModels;
 using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Business.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.App.Controllers
 {
@@ -18,9 +15,9 @@ namespace ListaDeFilmes.App.Controllers
         private readonly IGeneroService _generoService;
         private readonly IMapper _mapper;
 
-        public GenerosController(IGeneroRepository generoRepository, 
-                                 IGeneroService generoService, 
-                                 IMapper mapper, 
+        public GenerosController(IGeneroRepository generoRepository,
+                                 IGeneroService generoService,
+                                 IMapper mapper,
                                  INotificador notificador) : base(notificador)
         {
             _generoRepository = generoRepository;
@@ -30,17 +27,17 @@ namespace ListaDeFilmes.App.Controllers
 
         [AllowAnonymous]
         [Route("lista-de-generos")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(CancellationToken ct = default)
         {
-            return View(_mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos()));
+            return View(_mapper.Map<IEnumerable<GeneroViewModel>>(await _generoRepository.ObterTodos(ct)));
            // return View(await _generoRepository.ObterTodos());
         }
 
         [AllowAnonymous]
         [Route("detalhes-do-genero/{id:guid}")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(Guid id, CancellationToken ct = default)
         {
-            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id, ct));
             //var generoViewModel = await _generoRepository.ObterPorId(id);
 
             if (generoViewModel == null)
@@ -53,9 +50,9 @@ namespace ListaDeFilmes.App.Controllers
 
         [AllowAnonymous]
         [Route("detalhes-do-genero-modal/{id:guid}")]
-        public async Task<IActionResult> DetailsModal(Guid id)
+        public async Task<IActionResult> DetailsModal(Guid id, CancellationToken ct = default)
         {
-            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id, ct));
             //var generoViewModel = await _generoRepository.ObterPorId(id);
 
             if (generoViewModel == null)
@@ -76,12 +73,12 @@ namespace ListaDeFilmes.App.Controllers
         [HttpPost]
         [ClaimsAuthorize("Generos", "Adicionar")]
         [Route("novo-genero")]
-        public async Task<IActionResult> Create(GeneroViewModel generoViewModel)
+        public async Task<IActionResult> Create(GeneroViewModel generoViewModel, CancellationToken ct = default)
         {
             if (ModelState.IsValid)
             {
                 var genero = _mapper.Map<Genero>(generoViewModel);
-                await _generoService.Adicionar(genero);
+                await _generoService.Adicionar(genero, ct);
 
             }
 
@@ -95,9 +92,9 @@ namespace ListaDeFilmes.App.Controllers
 
         [ClaimsAuthorize("Generos", "Editar")]
         [Route("editar-genero/{id:guid}")]
-        public async Task<IActionResult> Edit(Guid id)
+        public async Task<IActionResult> Edit(Guid id, CancellationToken ct = default)
         {
-            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id, ct));
             //var generoViewModel = await _generoRepository.ObterPorId(id);
 
             if (generoViewModel == null)
@@ -111,7 +108,7 @@ namespace ListaDeFilmes.App.Controllers
         [HttpPost]
         [ClaimsAuthorize("Generos", "Editar")]
         [Route("editar-genero/{id:guid}")]
-        public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel)
+        public async Task<IActionResult> Edit(Guid id, GeneroViewModel generoViewModel, CancellationToken ct = default)
         {
             if (id != generoViewModel.Id)
             {
@@ -124,7 +121,7 @@ namespace ListaDeFilmes.App.Controllers
             }
 
             var genero = _mapper.Map<Genero>(generoViewModel);
-            await _generoService.Atualizar(genero);
+            await _generoService.Atualizar(genero, ct);
 
             if (!OperacaoValida())
             {
@@ -136,10 +133,10 @@ namespace ListaDeFilmes.App.Controllers
 
         [ClaimsAuthorize("Generos", "Excluir")]
         [Route("excluir-genero/{id:guid}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, CancellationToken ct = default)
         {
             //var generoViewModel = await _generoRepository.ObterPorId(id);
-            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id));
+            var generoViewModel = _mapper.Map<GeneroViewModel>(await _generoRepository.ObterPorId(id, ct));
 
             if (generoViewModel == null)
             {
@@ -152,16 +149,16 @@ namespace ListaDeFilmes.App.Controllers
         [HttpPost, ActionName("Delete")]
         [ClaimsAuthorize("Generos", "Excluir")]
         [Route("excluir-genero/{id:guid}")]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public async Task<IActionResult> DeleteConfirmed(Guid id, CancellationToken ct = default)
         {
-            var generoViewModel = await _generoRepository.ObterPorId(id);
+            var generoViewModel = await _generoRepository.ObterPorId(id, ct);
 
             if (generoViewModel == null)
             {
                 return NotFound();
             }
 
-            await _generoService.Remover(id);
+            await _generoService.Remover(id, ct);
 
             if (!OperacaoValida())
             {

@@ -1,6 +1,5 @@
-﻿using ListaDeFilmes.App.ViewModels;
+using ListaDeFilmes.App.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace ListaDeFilmes.App.Controllers
 {

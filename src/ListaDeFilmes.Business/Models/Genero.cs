@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
 namespace ListaDeFilmes.Business.Models
 {
     public class Genero : Entity
     {
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         public ICollection<Filme> Filmes { get; set; } = new List<Filme>();   //= O new List<Filme> garante que a lista seja instanciada  //Relacionamento: um genero tem em vários filmes
 

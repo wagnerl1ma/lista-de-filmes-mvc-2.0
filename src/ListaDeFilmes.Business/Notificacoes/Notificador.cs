@@ -1,6 +1,4 @@
-﻿using ListaDeFilmes.Business.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+using ListaDeFilmes.Business.Interfaces;
 
 namespace ListaDeFilmes.Business.Notificacoes
 {
@@ -18,7 +16,7 @@ namespace ListaDeFilmes.Business.Notificacoes
             _notificacoes.Add(notificacao);
         }
 
-        public List<Notificacao> ObterNotificacoes()
+        public IReadOnlyList<Notificacao> ObterNotificacoes()
         {
             return _notificacoes;
         }

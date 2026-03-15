@@ -1,11 +1,9 @@
-﻿using ListaDeFilmes.Business.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ListaDeFilmes.Business.Models;
 
 namespace ListaDeFilmes.Business.Interfaces
 {
     public interface IGeneroRepository : IRepository<Genero>
     {
-        Task<List<Genero>> GetGenerosAsync();
+        Task<List<Genero>> GetGenerosAsync(CancellationToken ct = default);
     }
 }

@@ -2,16 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-ListaDeFilmes.App-FEA0BC9E-BCB9-4573-A28E-4909A8B4AAAD</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-	<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.3" />
-	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.3" />
-	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.3" />
+	<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+	<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.*" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.*" />
+	<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.*" />
 	<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
-	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.3" />
+	<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.*">
+	  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  <PrivateAssets>all</PrivateAssets>
+	</PackageReference>
   </ItemGroup>
 
   <ItemGroup>

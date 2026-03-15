@@ -1,6 +1,5 @@
 ﻿using ListaDeFilmes.Business.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace ListaDeFilmes.Data.Context
 {
@@ -9,7 +8,6 @@ namespace ListaDeFilmes.Data.Context
         public ListaDeFilmesContext(DbContextOptions options) : base(options)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-            ChangeTracker.AutoDetectChangesEnabled = false;
         }
 
         public DbSet<Ator> Atores { get; set; }
@@ -20,14 +18,15 @@ namespace ListaDeFilmes.Data.Context
         public DbSet<Produtora> Produtoras { get; set; }
 
 
+        //Apenas para STRING: caso esquecer de passar o tamanho da string nas mappings/configurations, o código abaixo irá criar o campo no banco de dados com o tamanho "varchar(100)"
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            configurationBuilder.Properties<string>()
+                .HaveColumnType("varchar(100)");
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Apenas para STRING: caso esquecer de passar o tamanho da string nas mappings/configurations, o código abaixo irá criar o campo no banco de dados com o tamanho "varchar(100)"
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                .SelectMany(e => e.GetProperties()
-                .Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(100)");
-
             //registra todas as mappings/configurations de uma vez só, ao inves de escrever uma por uma
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ListaDeFilmesContext).Assembly);
 

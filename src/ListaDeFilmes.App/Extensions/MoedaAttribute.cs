@@ -1,7 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.Extensions.Localization;
-using System;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 
@@ -10,7 +9,7 @@ namespace ListaDeFilmes.App.Extensions
     public class MoedaAttribute : ValidationAttribute
     {
         //Sobreescrevendo o métodos "IsValid" para validar um decimal moeda para pt-BR
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             try
             {
@@ -28,7 +27,7 @@ namespace ListaDeFilmes.App.Extensions
     public class MoedaAttributeAdapter : AttributeAdapterBase<MoedaAttribute>
     {
 
-        public MoedaAttributeAdapter(MoedaAttribute attribute, IStringLocalizer stringLocalizer) : base(attribute, stringLocalizer)
+        public MoedaAttributeAdapter(MoedaAttribute attribute, IStringLocalizer? stringLocalizer) : base(attribute, stringLocalizer)
         {
 
         }
@@ -52,7 +51,7 @@ namespace ListaDeFilmes.App.Extensions
     public class MoedaValidationAttributeAdapterProvider : IValidationAttributeAdapterProvider
     {
         private readonly IValidationAttributeAdapterProvider _baseProvider = new ValidationAttributeAdapterProvider();
-        public IAttributeAdapter GetAttributeAdapter(ValidationAttribute attribute, IStringLocalizer stringLocalizer)
+        public IAttributeAdapter? GetAttributeAdapter(ValidationAttribute attribute, IStringLocalizer? stringLocalizer)
         {
             if (attribute is MoedaAttribute moedaAttribute)
             {

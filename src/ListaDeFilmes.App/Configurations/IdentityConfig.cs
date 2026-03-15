@@ -1,10 +1,6 @@
-﻿using ListaDeFilmes.App.Data;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
+using ListaDeFilmes.App.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ListaDeFilmes.App.Configurations
 {

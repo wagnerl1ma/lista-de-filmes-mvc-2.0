@@ -1,14 +1,12 @@
-﻿using ListaDeFilmes.Business.Models;
-using System;
-using System.Threading.Tasks;
+using ListaDeFilmes.Business.Models;
 
 namespace ListaDeFilmes.Business.Interfaces
 {
-    public interface IGeneroService : IDisposable
+    public interface IGeneroService : IAsyncDisposable
     {
-        Task Adicionar(Genero fornecedor);
-        Task Atualizar(Genero fornecedor);
-        Task Remover(Guid id);
+        Task Adicionar(Genero fornecedor, CancellationToken ct = default);
+        Task Atualizar(Genero fornecedor, CancellationToken ct = default);
+        Task Remover(Guid id, CancellationToken ct = default);
 
         //Task AtualizarGenero(Genero genero);
     }

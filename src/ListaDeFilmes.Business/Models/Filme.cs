@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace ListaDeFilmes.Business.Models
 {
     public class Filme : Entity
     {
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         public DateTime? DataCadastro { get; set; } = DateTime.Now;
 
-        public string Classificacao { get; set; }
+        public string Classificacao { get; set; } = string.Empty;
 
         public int? Ano { get; set; }
 
-        public string Comentarios { get; set; }
+        public string? Comentarios { get; set; }
 
-        public string Imagem { get; set; }
+        public string? Imagem { get; set; }
 
         public decimal Valor { get; set; }
 
@@ -23,20 +20,20 @@ namespace ListaDeFilmes.Business.Models
 
 
         // Um Filme pode ter vários Atores (Relacionamneto muitos para muitos)
-        public ICollection<FilmeAtor> FilmesAtores { get; set; }
+        public ICollection<FilmeAtor> FilmesAtores { get; set; } = new List<FilmeAtor>();
 
         // Um Filme só pode ter um Genero (Relacionamento um para muitos)
-        public Genero Genero { get; set; }                           
+        public Genero? Genero { get; set; }
         public Guid GeneroId { get; set; }
 
 
         // Um Filme só pode ter um Diretor (Relacionamneto um para muitos)
-        public Diretor Diretor { get; set; }
+        public Diretor? Diretor { get; set; }
         public Guid? DiretorId { get; set; }    //TODO: RETIRAR A OPÇÃO DE ACEITAR NULO QUANDO TERMINAR O CRUD E A SERVICE
 
 
         // Um Filme só pode ter um Produtora (Relacionamneto um para muitos)
-        public Produtora Produtora { get; set; }                    
+        public Produtora? Produtora { get; set; }
         public Guid? ProdutoraId { get; set; }        //TODO: RETIRAR A OPÇÃO DE ACEITAR NULO QUANDO TERMINAR O CRUD E A SERVICE
 
 

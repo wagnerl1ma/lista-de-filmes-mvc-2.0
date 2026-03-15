@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using FluentValidation.Results;
 using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Business.Models;

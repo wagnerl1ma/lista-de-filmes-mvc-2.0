@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
 
 namespace ListaDeFilmes.App.Extensions
 {
@@ -16,10 +14,10 @@ namespace ListaDeFilmes.App.Extensions
         }
 
         [HtmlAttributeName("disable-by-claim-name")]
-        public string IdentityClaimName { get; set; }
+        public string IdentityClaimName { get; set; } = string.Empty;
 
         [HtmlAttributeName("disable-by-claim-value")]
-        public string IdentityClaimValue { get; set; }
+        public string IdentityClaimValue { get; set; } = string.Empty;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -28,7 +26,7 @@ namespace ListaDeFilmes.App.Extensions
             if (output == null)
                 throw new ArgumentNullException(nameof(output));
 
-            var temAcesso = CustomAuthorization.ValidarClaimsUsuario(_contextAccessor.HttpContext, IdentityClaimName, IdentityClaimValue);
+            var temAcesso = CustomAuthorization.ValidarClaimsUsuario(_contextAccessor.HttpContext!, IdentityClaimName, IdentityClaimValue);
 
             if (temAcesso) return;
 

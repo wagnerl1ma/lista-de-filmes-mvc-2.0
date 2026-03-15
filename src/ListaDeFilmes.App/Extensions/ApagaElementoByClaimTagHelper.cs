@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Microsoft.AspNetCore.Routing;
-using System;
 
 namespace ListaDeFilmes.App.Extensions
 {
@@ -17,10 +15,10 @@ namespace ListaDeFilmes.App.Extensions
         }
 
         [HtmlAttributeName("supress-by-claim-name")]
-        public string IdentityClaimName { get; set; }
+        public string IdentityClaimName { get; set; } = string.Empty;
 
         [HtmlAttributeName("supress-by-claim-value")]
-        public string IdentityClaimValue { get; set; }
+        public string IdentityClaimValue { get; set; } = string.Empty;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -29,7 +27,7 @@ namespace ListaDeFilmes.App.Extensions
             if (output == null)
                 throw new ArgumentNullException(nameof(output));
 
-            var temAcesso = CustomAuthorization.ValidarClaimsUsuario(_contextAccessor.HttpContext, IdentityClaimName, IdentityClaimValue);
+            var temAcesso = CustomAuthorization.ValidarClaimsUsuario(_contextAccessor.HttpContext!, IdentityClaimName, IdentityClaimValue);
 
             if (temAcesso) return;
 
@@ -48,7 +46,7 @@ namespace ListaDeFilmes.App.Extensions
         }
 
         [HtmlAttributeName("supress-by-action")]
-        public string ActionName { get; set; }
+        public string ActionName { get; set; } = string.Empty;
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -57,9 +55,9 @@ namespace ListaDeFilmes.App.Extensions
             if (output == null)
                 throw new ArgumentNullException(nameof(output));
 
-            var action = _contextAccessor.HttpContext.GetRouteData().Values["action"].ToString();
+            var action = _contextAccessor.HttpContext?.GetRouteData().Values["action"]?.ToString();
 
-            if (ActionName.Contains(action)) return;
+            if (action != null && ActionName.Contains(action)) return;
 
             output.SuppressOutput();
         }

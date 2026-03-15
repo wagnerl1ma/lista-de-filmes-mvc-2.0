@@ -1,4 +1,4 @@
-﻿using ListaDeFilmes.Business.Models;
+using ListaDeFilmes.Business.Models;
 
 namespace ListaDeFilmes.Business.Interfaces
 {
