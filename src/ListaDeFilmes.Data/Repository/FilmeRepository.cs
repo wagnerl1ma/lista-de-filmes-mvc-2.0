@@ -2,10 +2,6 @@
 using ListaDeFilmes.Business.Models;
 using ListaDeFilmes.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.Data.Repository
 {
@@ -13,24 +9,24 @@ namespace ListaDeFilmes.Data.Repository
     {
         public FilmeRepository(ListaDeFilmesContext context) : base(context) { }
 
-        public async Task<Filme> ObterFilmeGenero(Guid id)
+        public async Task<Filme?> ObterFilmeGenero(Guid id, CancellationToken ct = default)
         {
-            return await _dbContext.Filmes.AsNoTracking().Include(g => g.Genero).FirstOrDefaultAsync(f => f.Id == id);
+            return await _dbContext.Filmes.AsNoTracking().Include(g => g.Genero).FirstOrDefaultAsync(f => f.Id == id, ct);
         }
 
-        public async Task<List<Filme>> ObterFilmesGeneros()
+        public async Task<List<Filme>> ObterFilmesGeneros(CancellationToken ct = default)
         {
-            return await _dbContext.Filmes.AsNoTracking().Include(x => x.Genero).ToListAsync(); //instanciando o Genero junto com a lista de filmes
+            return await _dbContext.Filmes.AsNoTracking().Include(x => x.Genero).ToListAsync(ct); //instanciando o Genero junto com a lista de filmes
         }
 
-        public async Task<List<Filme>> PesquisaNomeFilme(string nomeFilme)
+        public async Task<List<Filme>> PesquisaNomeFilme(string nomeFilme, CancellationToken ct = default)
         {
             var query = _dbContext.Filmes.AsNoTracking()
                .Where(x => x.Nome.Contains(nomeFilme))
                .Include(x => x.Genero) //join
                .OrderBy(x => x.Nome);
 
-            return await query.ToListAsync();
+            return await query.ToListAsync(ct);
         }
     }
 }

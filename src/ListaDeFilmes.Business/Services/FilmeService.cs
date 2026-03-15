@@ -1,8 +1,6 @@
-﻿using ListaDeFilmes.Business.Interfaces;
+using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Business.Models;
 using ListaDeFilmes.Business.Models.Validations;
-using System;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.Business.Services
 {
@@ -17,27 +15,33 @@ namespace ListaDeFilmes.Business.Services
             _generoRepository = generoRepository;
         }
 
-        public async Task Adicionar(Filme filme)
+        public async Task Adicionar(Filme filme, CancellationToken ct = default)
         {
             //se a Validação não for valida, retorna a notificação e nao faz a adição
             if (!ExecutarValidacao(new FilmeValidation(), filme)) return;
 
-            await _filmeRepository.Adicionar(filme);
+            filme.DataCadastro = DateTime.Now;
+
+            await _filmeRepository.Adicionar(filme, ct);
+            await _filmeRepository.SaveChanges(ct);
         }
 
-        public async Task Atualizar(Filme filme)
+        public async Task Atualizar(Filme filme, CancellationToken ct = default)
         {
-            if (!ExecutarValidacao(new FilmeValidation(), filme)
-                || !ExecutarValidacao(new GeneroValidation(), filme.Genero)) return;
+            if (!ExecutarValidacao(new FilmeValidation(), filme)) return;
 
-            filme.Genero = await _generoRepository.ObterPorId(filme.GeneroId);
+            if (filme.Genero == null || !ExecutarValidacao(new GeneroValidation(), filme.Genero)) return;
 
-            await _filmeRepository.Atualizar(filme);
+            filme.Genero = await _generoRepository.ObterPorId(filme.GeneroId, ct);
+
+            await _filmeRepository.Atualizar(filme, ct);
+            await _filmeRepository.SaveChanges(ct);
         }
 
-        public async Task Remover(Guid id)
+        public async Task Remover(Guid id, CancellationToken ct = default)
         {
-            await _filmeRepository.Remover(id);
+            await _filmeRepository.Remover(id, ct);
+            await _filmeRepository.SaveChanges(ct);
         }
 
         //public async Task<Filme> ObterFilmePreenchido(Guid id)
@@ -48,11 +52,11 @@ namespace ListaDeFilmes.Business.Services
         //    return filme;
         //}
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
             //? = Se ele existir faça o Dispose, se nao exister não faça
-            _filmeRepository?.Dispose();
-            _generoRepository?.Dispose();
+            if (_filmeRepository != null) await _filmeRepository.DisposeAsync();
+            if (_generoRepository != null) await _generoRepository.DisposeAsync();
         }
     }
 }

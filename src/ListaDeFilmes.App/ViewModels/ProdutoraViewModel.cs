@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ListaDeFilmes.App.ViewModels
@@ -9,9 +7,9 @@ namespace ListaDeFilmes.App.ViewModels
         [Key]
         public Guid Id { get; set; }
 
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
-        public List<FilmeViewModel> Filmes { get; set; }
+        public List<FilmeViewModel> Filmes { get; set; } = new List<FilmeViewModel>();
 
         //public ProdutoraViewModel()
         //{

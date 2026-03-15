@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing;
-using System.Linq;
 using System.Security.Claims;
 
 namespace ListaDeFilmes.App.Extensions
@@ -11,7 +9,7 @@ namespace ListaDeFilmes.App.Extensions
     {
         public static bool ValidarClaimsUsuario(HttpContext context, string claimName, string claimValue)
         {
-            return context.User.Identity.IsAuthenticated &&
+            return context.User.Identity!.IsAuthenticated &&
                    context.User.Claims.Any(c => c.Type == claimName && c.Value.Contains(claimValue));
         }
     }
@@ -35,7 +33,7 @@ namespace ListaDeFilmes.App.Extensions
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (!context.HttpContext.User.Identity.IsAuthenticated)
+            if (!context.HttpContext.User.Identity!.IsAuthenticated)
             {
                 context.Result = new RedirectToRouteResult(new RouteValueDictionary(new { area = "Identity", page = "/Account/Login", ReturnUrl = context.HttpContext.Request.Path.ToString() }));
                 return;

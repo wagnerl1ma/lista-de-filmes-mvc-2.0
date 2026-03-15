@@ -26,6 +26,6 @@
 
     <div id="msg_box" class="alert alert-success">
         <button type="button" class="close text-black-50" data-dismiss="alert"><b>×</b></button>
-        <h4 id="msgRetorno">@Html.Raw(TempData["Sucesso"].ToString())</h4>
+        <h4 id="msgRetorno">@Html.Raw(TempData["Sucesso"]?.ToString())</h4>
     </div>
 }

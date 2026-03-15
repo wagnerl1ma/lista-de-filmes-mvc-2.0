@@ -1,22 +1,17 @@
 using ListaDeFilmes.App.Configurations;
 using ListaDeFilmes.Data.Context;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Configuração para mais de um Ambiente
+//ConfiguraÃ§Ã£o para mais de um Ambiente
 builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("appsettings.json", true, true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
     .AddEnvironmentVariables();
 
-// Adicionando suporte ao secrets apenas em ambiente de produção, retire este IF se deseja aplicar os secrets para qualquer ambiente.
+// Adicionando suporte ao secrets apenas em ambiente de produÃ§Ã£o, retire este IF se deseja aplicar os secrets para qualquer ambiente.
 if (builder.Environment.IsProduction())
 {
     builder.Configuration.AddUserSecrets<Program>();
@@ -36,17 +31,17 @@ builder.Services.ResolveDependencies();
 
 var app = builder.Build();
 
-// Configuração conforme os ambientes
+// ConfiguraÃ§Ã£o conforme os ambientes
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    app.UseDatabaseErrorPage();
+    app.UseMigrationsEndPoint();
 }
 else
 {
     app.UseExceptionHandler("/erro/500");
     app.UseStatusCodePagesWithRedirects("/erro/{0}");
-    app.UseHsts(); // te força para uma conexao segura
+    app.UseHsts(); // te forÃ§a para uma conexao segura
 }
 
 app.UseHttpsRedirection(); //redireciona para o https
@@ -57,7 +52,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Globalizando a aplicação em pt-BR
+// Globalizando a aplicaÃ§Ã£o em pt-BR
 app.UseGlobalizationConfig();
 
 app.MapControllerRoute(

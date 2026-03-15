@@ -1,8 +1,6 @@
-﻿using ListaDeFilmes.Business.Interfaces;
+using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Business.Models;
 using ListaDeFilmes.Business.Models.Validations;
-using System;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.Business.Services
 {
@@ -14,31 +12,34 @@ namespace ListaDeFilmes.Business.Services
         {
             _generoRepository = generoRepository;
         }
-        public async Task Adicionar(Genero genero)
+        public async Task Adicionar(Genero genero, CancellationToken ct = default)
         {
             //se a Validação não for valida, retorna a notificação e nao faz a adição
             if (!ExecutarValidacao(new GeneroValidation(), genero)) return;
 
-            await _generoRepository.Adicionar(genero);
+            await _generoRepository.Adicionar(genero, ct);
+            await _generoRepository.SaveChanges(ct);
         }
 
-        public async Task Atualizar(Genero genero)
+        public async Task Atualizar(Genero genero, CancellationToken ct = default)
         {
             //se a Validação não for valida, retorna e nao faz a atualização
             if (!ExecutarValidacao(new GeneroValidation(), genero)) return;
 
-            await _generoRepository.Atualizar(genero);
+            await _generoRepository.Atualizar(genero, ct);
+            await _generoRepository.SaveChanges(ct);
         }
 
-        public async Task Remover(Guid id)
+        public async Task Remover(Guid id, CancellationToken ct = default)
         {
-            await _generoRepository.Remover(id);
+            await _generoRepository.Remover(id, ct);
+            await _generoRepository.SaveChanges(ct);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
             //? = Se ele existir faça o Dispose, se nao exister não faça
-            _generoRepository?.Dispose();
+            if (_generoRepository != null) await _generoRepository.DisposeAsync();
         }
     }
 }

@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ListaDeFilmes.App.ViewModels
@@ -9,10 +7,10 @@ namespace ListaDeFilmes.App.ViewModels
         [Key]
         public Guid Id { get; set; }
 
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
         // Um Ator pode ter vários Filmes (Relacionamneto muitos para muitos)
-        public ICollection<FilmeAtorViewModel> FilmesAtores { get; set; } //= new List<FilmeAtor>();     
+        public ICollection<FilmeAtorViewModel> FilmesAtores { get; set; } = new List<FilmeAtorViewModel>(); //= new List<FilmeAtor>();
 
         //public AtorViewModel()
         //{

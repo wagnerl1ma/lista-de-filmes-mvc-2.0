@@ -1,13 +1,11 @@
-﻿using System;
-
 namespace ListaDeFilmes.Business.Models
 {
     public class FilmeAtor : Entity            // inserir Chave Composta com 2 Ids
     {
-        public Filme Filme { get; set; }
+        public Filme? Filme { get; set; }
         public Guid FilmeId { get; set; }
 
-        public Ator Ator { get; set; }
+        public Ator? Ator { get; set; }
         public Guid AtorId { get; set; }
 
         //public FilmeAtor()

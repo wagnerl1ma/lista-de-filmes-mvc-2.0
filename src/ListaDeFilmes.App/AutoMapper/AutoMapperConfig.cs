@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using ListaDeFilmes.App.ViewModels;
 using ListaDeFilmes.Business.Models;
 

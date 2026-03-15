@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-
 namespace ListaDeFilmes.Business.Models
 {
     public class Produtora : Entity
     {
-        public string Nome { get; set; }
+        public string Nome { get; set; } = string.Empty;
 
-        public List<Filme> Filmes { get; set; }
+        public List<Filme> Filmes { get; set; } = new List<Filme>();
 
         //public Produtora()
         //{

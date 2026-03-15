@@ -1,9 +1,5 @@
-﻿using ListaDeFilmes.Business.Interfaces;
+using ListaDeFilmes.Business.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.App.Extensions
 {
@@ -16,11 +12,12 @@ namespace ListaDeFilmes.App.Extensions
             _notificador = notificador;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-            var notificacoes = await Task.FromResult(_notificador.ObterNotificacoes());
+            var notificacoes = _notificador.ObterNotificacoes();
 
-            notificacoes.ForEach(c => ViewData.ModelState.AddModelError(string.Empty, c.Mensagem));
+            foreach (var c in notificacoes)
+                ViewData.ModelState.AddModelError(string.Empty, c.Mensagem);
 
             return View();
         }

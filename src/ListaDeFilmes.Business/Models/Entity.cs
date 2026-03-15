@@ -1,5 +1,3 @@
-﻿using System;
-
 namespace ListaDeFilmes.Business.Models
 {
     public abstract class Entity

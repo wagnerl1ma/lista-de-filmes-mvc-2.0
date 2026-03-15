@@ -1,4 +1,3 @@
-﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ListaDeFilmes.App.ViewModels
@@ -8,10 +7,10 @@ namespace ListaDeFilmes.App.ViewModels
         [Key]
         public Guid Id { get; set; }
 
-        public FilmeViewModel Filme { get; set; }
+        public FilmeViewModel? Filme { get; set; }
         public Guid FilmeId { get; set; }
 
-        public AtorViewModel Ator { get; set; }
+        public AtorViewModel? Ator { get; set; }
         public Guid AtorId { get; set; }
 
         //public FilmeAtorViewModel()

@@ -1,11 +1,10 @@
-﻿using ListaDeFilmes.App.Extensions;
+using ListaDeFilmes.App.Extensions;
 using ListaDeFilmes.Business.Interfaces;
 using ListaDeFilmes.Business.Notificacoes;
 using ListaDeFilmes.Business.Services;
 using ListaDeFilmes.Data.Context;
 using ListaDeFilmes.Data.Repository;
 using Microsoft.AspNetCore.Mvc.DataAnnotations;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ListaDeFilmes.App.Configurations
 {

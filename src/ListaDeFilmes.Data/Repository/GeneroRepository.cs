@@ -2,9 +2,6 @@
 using ListaDeFilmes.Business.Models;
 using ListaDeFilmes.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ListaDeFilmes.Data.Repository
 {
@@ -12,9 +9,9 @@ namespace ListaDeFilmes.Data.Repository
     {
         public GeneroRepository(ListaDeFilmesContext context) : base(context) { }
 
-        public async Task<List<Genero>> GetGenerosAsync()
+        public async Task<List<Genero>> GetGenerosAsync(CancellationToken ct = default)
         {
-            return await _dbContext.Generos.AsNoTracking().OrderBy(x => x.Nome).ToListAsync();
+            return await _dbContext.Generos.AsNoTracking().OrderBy(x => x.Nome).ToListAsync(ct);
         }
     }
 }
