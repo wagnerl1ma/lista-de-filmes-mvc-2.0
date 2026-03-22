@@ -1,43 +1,34 @@
-﻿@model IEnumerable<ListaDeFilmes.App.ViewModels.FilmeViewModel>
+@model IEnumerable<ListaDeFilmes.App.ViewModels.FilmeViewModel>
 
 @{
     ViewData["Title"] = "Lista de Filmes";
 }
 
-<h1>@ViewData["Title"]</h1>
-<hr />
-
-
 <vc:Summary></vc:Summary>
 
-<p>
-    <a class="btn btn-info" disable-by-claim-name="Filmes" disable-by-claim-value="Adicionar" asp-action="Create">Novo Filme</a>
-</p>
+<div class="page-header">
+    <h1 class="page-title">
+        <i class="fas fa-video"></i> Lista de Filmes
+    </h1>
+    <a class="btn btn-primary" disable-by-claim-name="Filmes" disable-by-claim-value="Adicionar" asp-action="Create">
+        <i class="fas fa-plus"></i> Novo Filme
+    </a>
+</div>
 
 <div id="FilmeTarget">
     <partial name="_ListaFilmes" />
 </div>
 
-    
-
-<div id="myModal" class="modal fade in">
-    <div class="modal-dialog">
+<div id="myModal" class="modal fade in cinema-modal">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div id="myModalContent"></div>
         </div>
     </div>
 </div>
 
-
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-    <script>
-        $("#ImagemUpload").change(function () {
-            $("#img_nome").text(this.files[0].name);
-            $("#img_nome")[0].style.display = 'block';
-        });
-    </script>
 
     <script>
         $(document).ready(function () {

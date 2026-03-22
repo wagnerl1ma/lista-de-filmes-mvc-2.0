@@ -1,93 +1,86 @@
-﻿@model ListaDeFilmes.App.ViewModels.FilmeViewModel
+@model ListaDeFilmes.App.ViewModels.FilmeViewModel
 
 @{
     ViewData["Title"] = "Detalhe do Filme - " + Model.Nome;
 }
 
-<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
-<hr />
+<div class="filme-detail mt-4">
+    <div class="filme-detail__backdrop" style="background-image: url('/imagens/@Model.Imagem')"></div>
 
-<div class="row">
-    <div class="col-md-4">
-        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 428px" />
-    </div>
-    <div class="col-md-6">
-        <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DataCadastro)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Classificacao)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Classificacao)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ano)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ano)
-            </dd>
-            @*<dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Comentarios)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Comentarios)
-            </dd>*@
-            <dt>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Imagem)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Valor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Valor)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Genero)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Genero!.Nome)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Diretor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Diretor!.Id)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Produtora)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Produtora!.Id)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ativo)
-            </dd>
-        </dl>
+    <div class="filme-detail__content">
+        <div class="row">
+            <div class="col-md-4 mb-4 text-center">
+                <img src="~/imagens/@Model.Imagem" alt="@Model.Nome" class="filme-detail__poster" />
+            </div>
+            <div class="col-md-8">
+                <h1 class="filme-detail__title">@Model.Nome</h1>
 
-        <div>
-            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
-            <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
+                <div class="filme-detail__badges">
+                    @if (Model.Genero != null)
+                    {
+                        <span class="cinema-badge cinema-badge--genre">
+                            <i class="fas fa-theater-masks"></i> @Model.Genero.Nome
+                        </span>
+                    }
+                    @if (Model.Ano.HasValue)
+                    {
+                        <span class="cinema-badge cinema-badge--year">@Model.Ano</span>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Classificacao))
+                    {
+                        <span class="cinema-badge cinema-badge--rating">
+                            <i class="fas fa-star"></i> @Model.Classificacao
+                        </span>
+                    }
+                    @if (Model.Ativo)
+                    {
+                        <span class="cinema-badge cinema-badge--active">Ativo</span>
+                    }
+                    else
+                    {
+                        <span class="cinema-badge cinema-badge--inactive">Inativo</span>
+                    }
+                </div>
+
+                <ul class="filme-detail__meta">
+                    @if (Model.DataCadastro.HasValue)
+                    {
+                        <li class="filme-detail__meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="filme-detail__meta-label">Data Cadastro</span>
+                            <span class="filme-detail__meta-value">@Model.DataCadastro</span>
+                        </li>
+                    }
+                    <li class="filme-detail__meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span class="filme-detail__meta-label">Valor</span>
+                        <span class="filme-detail__meta-value">@Model.Valor.ToString("C2").Replace("$", "$ ")</span>
+                    </li>
+                    @if (Model.Genero != null)
+                    {
+                        <li class="filme-detail__meta-item">
+                            <i class="fas fa-theater-masks"></i>
+                            <span class="filme-detail__meta-label">G&ecirc;nero</span>
+                            <span class="filme-detail__meta-value">@Model.Genero.Nome</span>
+                        </li>
+                    }
+                </ul>
+
+                @if (!string.IsNullOrEmpty(Model.Comentarios))
+                {
+                    <div class="section-title">Comentarios</div>
+                    <div class="filme-detail__comments">@Model.Comentarios</div>
+                }
+
+                <div class="filme-detail__actions">
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">
+                        <i class="fas fa-pencil-alt"></i> Editar
+                    </a>
+                    <a class="btn btn-outline-cinema" href="javascript:window.history.back();">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-

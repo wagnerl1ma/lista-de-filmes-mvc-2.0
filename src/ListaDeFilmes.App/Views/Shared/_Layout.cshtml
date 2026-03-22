@@ -1,69 +1,71 @@
-﻿@*@System.Globalization.CultureInfo.CurrentCulture*@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ListaDeFilmes.App</title>
+    <title>@ViewData["Title"] - Minha Lista de Filmes</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap-solar.css" />
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />*@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dark cinema-navbar">
             <div class="container col-sm-10">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ListaDeFilmes.App</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-film"></i> Minha Lista de Filmes
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        @*<li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>*@
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Filmes" asp-action="Index">Filmes</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
+                                <i class="fas fa-home"></i> Home
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Generos" asp-action="Index">Generos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Filmes" asp-action="Index">
+                                <i class="fas fa-video"></i> Filmes
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Atores" asp-action="Index">Atores</a>
+                            <a class="nav-link" asp-area="" asp-controller="Generos" asp-action="Index">
+                                <i class="fas fa-theater-masks"></i> Generos
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Produtoras" asp-action="Index">Produtora</a>
+                            <a class="nav-link" asp-area="" asp-controller="Atores" asp-action="Index">
+                                <i class="fas fa-user-friends"></i> Atores
+                            </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Produtoras" asp-action="Index">
+                                <i class="fas fa-building"></i> Produtora
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container col-sm-10">
+
+    <div class="container col-sm-10 flex-grow-1">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - ListaFilmes.App - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
-
-
-    <footer class="border-top footer text-muted">
+    <footer class="cinema-footer">
         <div class="container">
-            &copy; 2021 - ListaDeFilmes.App- contato: <email>wagner.araujo92</email>
+            &copy; 2021-2026 Minha Lista de Filmes
+            <span class="cinema-footer__divider"></span>
+            Desenvolvido por Wagner
         </div>
     </footer>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

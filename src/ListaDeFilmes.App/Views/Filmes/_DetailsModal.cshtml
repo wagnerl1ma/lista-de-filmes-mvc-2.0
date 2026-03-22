@@ -1,96 +1,87 @@
-﻿@model ListaDeFilmes.App.ViewModels.FilmeViewModel
+@model ListaDeFilmes.App.ViewModels.FilmeViewModel
 
 @{
     ViewData["Title"] = "Detalhes do Filme - " + Model.Nome;
 }
 
 <div class="modal-header">
-    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <h5 class="modal-title">
+        <i class="fas fa-film text-cinema-gold"></i> @Model.Nome
+    </h5>
     <button type="button" class="close" data-dismiss="modal">
-        <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<form enctype="multipart/form-data" asp-action="DetailsModal">
-    <div class="modal-body">
-        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 428px" />
-        <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DataCadastro)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Classificacao)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Classificacao)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ano)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ano)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Imagem)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Valor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Valor)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Genero)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Genero!.Nome)
-            </dd>
-            @*<dt>
-                @Html.DisplayNameFor(model => model.Diretor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Diretor.Id)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Produtora)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Produtora.Id)
-            </dd>*@
-            <dt>
-                @Html.DisplayNameFor(model => model.Comentarios)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Comentarios)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ativo)
-            </dd>
-        </dl>
+<div class="modal-body">
+    <div class="modal-detail-layout">
+        <img src="~/imagens/@Model.Imagem" alt="@Model.Nome" />
 
-        <div class="modal-footer">
-            <div class="col text-center">
-                @*<input type="submit" value="Editar" class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id" />*@
-                <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
-            </div>
+        <div class="modal-detail-info">
+            <dl>
+                <dt>Nome</dt>
+                <dd>@Model.Nome</dd>
+
+                @if (Model.Genero != null)
+                {
+                    <dt>G&ecirc;nero</dt>
+                    <dd>
+                        <span class="cinema-badge cinema-badge--genre">@Model.Genero.Nome</span>
+                    </dd>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Classificacao))
+                {
+                    <dt>Classifica&ccedil;&atilde;o</dt>
+                    <dd>
+                        <span class="cinema-badge cinema-badge--rating">
+                            <i class="fas fa-star"></i> @Model.Classificacao
+                        </span>
+                    </dd>
+                }
+
+                @if (Model.Ano.HasValue)
+                {
+                    <dt>Ano</dt>
+                    <dd>@Model.Ano</dd>
+                }
+
+                @if (Model.DataCadastro.HasValue)
+                {
+                    <dt>Data Cadastro</dt>
+                    <dd>@Model.DataCadastro</dd>
+                }
+
+                <dt>Valor</dt>
+                <dd>@Model.Valor.ToString("C2").Replace("$", "$ ")</dd>
+
+                <dt>Status</dt>
+                <dd>
+                    @if (Model.Ativo)
+                    {
+                        <span class="cinema-badge cinema-badge--active">Ativo</span>
+                    }
+                    else
+                    {
+                        <span class="cinema-badge cinema-badge--inactive">Inativo</span>
+                    }
+                </dd>
+
+                @if (!string.IsNullOrEmpty(Model.Comentarios))
+                {
+                    <dt>Comentarios</dt>
+                    <dd class="filme-detail__comments" style="margin-left: 0;">@Model.Comentarios</dd>
+                }
+            </dl>
         </div>
     </div>
-</form>
+</div>
 
-
-
+<div class="modal-footer">
+    <a class="btn btn-outline-cinema btn-sm" asp-controller="Filmes" asp-action="Details" asp-route-id="@Model.Id">
+        <i class="fas fa-expand"></i> Ver Detalhes Completos
+    </a>
+    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">
+        Fechar
+    </button>
+</div>

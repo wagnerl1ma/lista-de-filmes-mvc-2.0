@@ -1,8 +1,45 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<section class="cinema-hero">
+    <i class="fas fa-film cinema-hero__icon"></i>
+    <div class="cinema-hero__content animate-fade-in-up">
+        <h1>Minha Lista de Filmes</h1>
+        <p class="lead">
+            Organize, avalie e acompanhe todos os seus filmes favoritos em um s&oacute; lugar.
+        </p>
+        <div class="cinema-hero__actions">
+            <a class="btn btn-primary btn-lg" asp-controller="Filmes" asp-action="Index">
+                <i class="fas fa-video"></i> Ver Meus Filmes
+            </a>
+            <a class="btn btn-outline-cinema btn-lg" asp-controller="Filmes" asp-action="Create">
+                <i class="fas fa-plus"></i> Adicionar Filme
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="row mt-5 mb-4">
+    <div class="col-md-4 mb-3">
+        <a asp-controller="Filmes" asp-action="Index" class="cinema-quick-link">
+            <i class="fas fa-video cinema-quick-link__icon"></i>
+            <h5 class="cinema-quick-link__title">Filmes</h5>
+            <p class="cinema-quick-link__desc">Gerencie sua cole&ccedil;&atilde;o completa de filmes</p>
+        </a>
+    </div>
+    <div class="col-md-4 mb-3">
+        <a asp-controller="Generos" asp-action="Index" class="cinema-quick-link">
+            <i class="fas fa-theater-masks cinema-quick-link__icon"></i>
+            <h5 class="cinema-quick-link__title">G&ecirc;neros</h5>
+            <p class="cinema-quick-link__desc">Organize filmes por g&ecirc;nero e categoria</p>
+        </a>
+    </div>
+    <div class="col-md-4 mb-3">
+        <a asp-controller="Atores" asp-action="Index" class="cinema-quick-link">
+            <i class="fas fa-user-friends cinema-quick-link__icon"></i>
+            <h5 class="cinema-quick-link__title">Atores</h5>
+            <p class="cinema-quick-link__desc">Explore o elenco dos seus filmes favoritos</p>
+        </a>
+    </div>
 </div>

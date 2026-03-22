@@ -1,4 +1,5 @@
 using ListaDeFilmes.App.Data;
+using ListaDeFilmes.App.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,15 @@ namespace ListaDeFilmes.App.Configurations
             // Adicionando o suporte ao acesso ao DB do Identity via EF
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+            })
+            .AddErrorDescriber<IdentityMensagensPortugues>()
+            .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            // TODO: [EMAIL] Registrar o servico de e-mail quando implementar
+            // services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
         }
