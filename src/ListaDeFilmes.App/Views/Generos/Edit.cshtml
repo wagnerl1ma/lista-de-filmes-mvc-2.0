@@ -1,31 +1,44 @@
-﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
+@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 
 @{
-    ViewData["Title"] = "Gênero";
+    ViewData["Title"] = "Editar Genero";
 }
 
-<h1 style="padding-top: 20px">@ViewData["Title"] </h1>
-
-<h4>Editar</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-
-            <vc:Summary></vc:Summary>
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+<div class="row mt-4">
+    <div class="col-md-6 mx-auto">
+        <div class="cinema-form">
+            <div class="cinema-form__header">
+                <i class="fas fa-pencil-alt"></i>
+                <div>
+                    <h2>Editar G&ecirc;nero</h2>
+                    <p class="cinema-form__subtitle">Atualize o nome do g&ecirc;nero</p>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
-                <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
-            </div>
-        </form>
+
+            <form asp-action="Edit">
+
+                <vc:Summary></vc:Summary>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <hr class="cinema-divider" />
+
+                <div class="form-group d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salvar
+                    </button>
+                    <a class="btn btn-outline-cinema ml-2" href="javascript:window.history.back();">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 

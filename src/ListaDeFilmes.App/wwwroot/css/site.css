@@ -1,82 +1,1578 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+/* ==========================================================================
+   MINHA LISTA DE FILMES — Cinema Theme
+   Layered on Bootstrap 4.6 Bootswatch Solar
+   Aesthetic: Golden Age Cinema — art deco warmth, noir shadows, projector glow
+   ========================================================================== */
 
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+/* --------------------------------------------------------------------------
+   1. CUSTOM PROPERTIES
+   -------------------------------------------------------------------------- */
+:root {
+  --cinema-bg-deep: #001520;
+  --cinema-bg-card: #073642;
+  --cinema-bg-card-hover: #0a4052;
+  --cinema-bg-surface: #052d3a;
+  --cinema-border: rgba(181, 137, 0, 0.25);
+  --cinema-border-strong: rgba(181, 137, 0, 0.5);
+  --cinema-glow: rgba(38, 139, 210, 0.35);
+  --cinema-glow-gold: rgba(181, 137, 0, 0.2);
+  --cinema-gold: #b58900;
+  --cinema-gold-light: #d4a017;
+  --cinema-gold-dim: rgba(181, 137, 0, 0.6);
+  --cinema-text-bright: #eee8d5;
+  --cinema-text-muted: #839496;
+  --cinema-text-faint: #586e75;
+  --cinema-overlay: rgba(0, 21, 32, 0.88);
+  --cinema-danger: #d33682;
+  --cinema-danger-dim: rgba(211, 54, 130, 0.25);
+  --cinema-success: #2aa198;
+  --cinema-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --cinema-transition-fast: all 0.18s ease;
+  --cinema-radius: 8px;
+  --cinema-radius-lg: 12px;
+  --cinema-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --cinema-shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--cinema-glow);
 }
 
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   2. BASE / RESET
+   -------------------------------------------------------------------------- */
 html {
   font-size: 14px;
+  min-height: 100%;
 }
+
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
 
-.border-top {
-  border-top: 1px solid #e5e5e5;
-}
-.border-bottom {
-  border-bottom: 1px solid #e5e5e5;
-}
-
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
-}
-
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-bottom: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
-.footer {
+
+main[role="main"] {
+  flex: 1 0 auto;
+}
+
+a {
+  transition: color 0.2s ease;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--cinema-gold);
+  color: var(--cinema-bg-deep);
+}
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY
+   -------------------------------------------------------------------------- */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--cinema-text-bright);
+  font-weight: 600;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cinema-text-bright);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--cinema-border);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.page-title i {
+  color: var(--cinema-gold);
+  font-size: 1.6rem;
+}
+
+.page-subtitle {
+  font-size: 1.1rem;
+  color: var(--cinema-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--cinema-gold);
+  margin-bottom: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. NAVBAR (.cinema-navbar)
+   -------------------------------------------------------------------------- */
+.cinema-navbar {
+  background: linear-gradient(180deg, #073642 0%, #002b36 100%) !important;
+  border-bottom: 2px solid var(--cinema-border);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  padding: 0.6rem 0;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.cinema-navbar .navbar-brand {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cinema-gold) !important;
+  letter-spacing: 0.8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--cinema-transition-fast);
+}
+
+.cinema-navbar .navbar-brand:hover {
+  color: var(--cinema-gold-light) !important;
+  text-shadow: 0 0 20px var(--cinema-glow-gold);
+}
+
+.cinema-navbar .navbar-brand i {
+  font-size: 1.2rem;
+}
+
+.cinema-navbar .nav-link {
+  color: var(--cinema-text-muted) !important;
+  font-weight: 500;
+  padding: 0.6rem 1rem !important;
+  position: relative;
+  transition: color 0.25s ease;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cinema-navbar .nav-link::after {
+  content: '';
   position: absolute;
   bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--cinema-gold);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+}
+
+.cinema-navbar .nav-link:hover,
+.cinema-navbar .nav-link:focus {
+  color: var(--cinema-gold) !important;
+}
+
+.cinema-navbar .nav-link:hover::after {
+  width: 70%;
+}
+
+.cinema-navbar .nav-link.active {
+  color: var(--cinema-gold) !important;
+}
+
+.cinema-navbar .nav-link.active::after {
+  width: 70%;
+}
+
+.cinema-navbar .nav-link i {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+.cinema-navbar .nav-link:hover i {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   5. FOOTER (.cinema-footer)
+   -------------------------------------------------------------------------- */
+.cinema-footer {
+  flex-shrink: 0;
+  background: linear-gradient(0deg, var(--cinema-bg-deep), #002b36);
+  border-top: 1px solid var(--cinema-border);
+  padding: 1.5rem 0;
+  text-align: center;
+  color: var(--cinema-text-faint);
+  font-size: 0.85rem;
+}
+
+.cinema-footer a {
+  color: var(--cinema-gold-dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.cinema-footer a:hover {
+  color: var(--cinema-gold);
+  text-decoration: none;
+}
+
+.cinema-footer i {
+  margin: 0 0.15rem;
+}
+
+.cinema-footer__divider {
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background: var(--cinema-text-faint);
+  margin: 0 0.75rem;
+  vertical-align: middle;
+  opacity: 0.4;
+}
+
+/* --------------------------------------------------------------------------
+   6. CARD GRID (.filme-grid)
+   -------------------------------------------------------------------------- */
+.filme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 190px));
+  gap: 1.2rem;
+  padding: 0.5rem 0 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   7. FILM CARD (.filme-card)
+   -------------------------------------------------------------------------- */
+.filme-card {
+  background: var(--cinema-bg-card);
+  border: 1px solid transparent;
+  border-radius: var(--cinema-radius);
+  overflow: hidden;
+  transition: var(--cinema-transition);
+  cursor: default;
+  position: relative;
+}
+
+.filme-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--cinema-border-strong);
+  box-shadow: var(--cinema-shadow-elevated);
+}
+
+/* Poster wrapper */
+.filme-card__poster-wrapper {
+  position: relative;
+  overflow: hidden;
+  background: var(--cinema-bg-deep);
+}
+
+.filme-card__poster {
   width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+/* Fallback for older browsers */
+@supports not (aspect-ratio: 2 / 3) {
+  .filme-card__poster-wrapper {
+    padding-top: 150%;
+    position: relative;
+  }
+  .filme-card__poster {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.filme-card:hover .filme-card__poster {
+  transform: scale(1.04);
+}
+
+/* Status dot */
+.filme-card__status {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  z-index: 3;
+}
+
+.filme-card__status--ativo {
+  background: var(--cinema-success);
+  box-shadow: 0 0 8px rgba(42, 161, 152, 0.6);
+  animation: pulse 2.5s ease-in-out infinite;
+}
+
+.filme-card__status--inativo {
+  background: var(--cinema-text-faint);
+  opacity: 0.7;
+}
+
+/* Overlay with action buttons */
+.filme-card__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 15, 20, 0.95) 0%,
+    rgba(0, 15, 20, 0.7) 50%,
+    transparent 100%
+  );
+  padding: 2rem 0.7rem 0.8rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.filme-card:hover .filme-card__overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filme-card__actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+/* Card body */
+.filme-card__body {
+  padding: 0.5rem 0.65rem 0.6rem;
+}
+
+.filme-card__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cinema-text-bright);
+  margin: 0 0 0.3rem;
   white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
-input,
-select,
-file,
-textarea {
-    max-width: 400px;
+.filme-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
 }
 
-#quebra-txt tr td {
-    white-space: pre-wrap;
+.filme-card__badge {
+  background: rgba(38, 139, 210, 0.15);
+  color: #268bd2;
+  border-radius: 20px;
+  padding: 1px 7px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.filme-card__year {
+  color: var(--cinema-text-faint);
+  font-size: 0.7rem;
+}
+
+.filme-card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.3rem;
+  border-top: 1px solid rgba(131, 148, 150, 0.08);
+}
+
+.filme-card__rating {
+  color: var(--cinema-gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.filme-card__price {
+  color: var(--cinema-text-faint);
+  font-size: 0.7rem;
+}
+
+/* --------------------------------------------------------------------------
+   8. ACTION BUTTONS (.btn-action)
+   -------------------------------------------------------------------------- */
+.btn-action {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  border: 1px solid;
+  transition: var(--cinema-transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+
+.btn-action:hover {
+  transform: scale(1.12);
+  text-decoration: none;
+}
+
+.btn-action--info {
+  background: rgba(38, 139, 210, 0.2);
+  border-color: rgba(38, 139, 210, 0.4);
+  color: #268bd2;
+}
+
+.btn-action--info:hover {
+  background: rgba(38, 139, 210, 0.4);
+  color: #5ba3e0;
+  box-shadow: 0 0 14px rgba(38, 139, 210, 0.3);
+}
+
+.btn-action--warning {
+  background: rgba(181, 137, 0, 0.2);
+  border-color: rgba(181, 137, 0, 0.4);
+  color: var(--cinema-gold);
+}
+
+.btn-action--warning:hover {
+  background: rgba(181, 137, 0, 0.4);
+  color: var(--cinema-gold-light);
+  box-shadow: 0 0 14px var(--cinema-glow-gold);
+}
+
+.btn-action--danger {
+  background: rgba(211, 54, 130, 0.2);
+  border-color: rgba(211, 54, 130, 0.4);
+  color: var(--cinema-danger);
+}
+
+.btn-action--danger:hover {
+  background: rgba(211, 54, 130, 0.4);
+  color: #e06098;
+  box-shadow: 0 0 14px rgba(211, 54, 130, 0.3);
+}
+
+/* Disabled action button (no claim) */
+.btn-action[style*="not-allowed"],
+.btn-action.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   9. HERO SECTION (.cinema-hero)
+   -------------------------------------------------------------------------- */
+.cinema-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 80%, rgba(181, 137, 0, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(38, 139, 210, 0.05) 0%, transparent 50%),
+    linear-gradient(160deg, var(--cinema-bg-deep) 0%, #002b36 40%, var(--cinema-bg-card) 100%);
+  padding: 3rem 1.5rem;
+}
+
+.cinema-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(181, 137, 0, 0.015) 2px,
+      rgba(181, 137, 0, 0.015) 4px
+    );
+  pointer-events: none;
+}
+
+.cinema-hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+}
+
+.cinema-hero__icon {
+  font-size: 8rem;
+  color: var(--cinema-gold);
+  opacity: 0.04;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cinema-hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--cinema-text-bright);
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.5px;
+}
+
+.cinema-hero .lead {
+  font-size: 1.15rem;
+  color: var(--cinema-text-muted);
+  margin-bottom: 2rem;
+  line-height: 1.7;
+}
+
+.cinema-hero__actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   10. FILM DETAIL (.filme-detail)
+   -------------------------------------------------------------------------- */
+.filme-detail {
+  position: relative;
+  min-height: 400px;
+  padding: 2.5rem 0;
+}
+
+.filme-detail__backdrop {
+  position: absolute;
+  top: 0;
+  left: -5%;
+  right: -5%;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(35px) saturate(0.6);
+  opacity: 0.1;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.filme-detail__content {
+  position: relative;
+  z-index: 1;
+}
+
+.filme-detail__poster {
+  border-radius: var(--cinema-radius-lg);
+  box-shadow: 0 8px 35px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--cinema-border);
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+}
+
+.filme-detail__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--cinema-text-bright);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.filme-detail__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filme-detail__badges .badge {
+  font-size: 0.8rem;
+  padding: 0.35em 0.8em;
+  font-weight: 600;
+  border-radius: 20px;
+}
+
+.filme-detail__meta {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+}
+
+.filme-detail__meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(131, 148, 150, 0.08);
+  font-size: 0.95rem;
+}
+
+.filme-detail__meta-item i {
+  color: var(--cinema-gold);
+  width: 18px;
+  text-align: center;
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.filme-detail__meta-label {
+  color: var(--cinema-text-faint);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.filme-detail__meta-value {
+  color: var(--cinema-text-bright);
+  font-weight: 500;
+}
+
+.filme-detail__comments {
+  background: var(--cinema-bg-surface);
+  border-radius: var(--cinema-radius);
+  padding: 1.25rem;
+  border-left: 3px solid var(--cinema-border);
+  margin-bottom: 1.5rem;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: var(--cinema-text-muted);
+}
+
+.filme-detail__actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   11. FORMS (.cinema-form)
+   -------------------------------------------------------------------------- */
+.cinema-form {
+  background: var(--cinema-bg-card);
+  border-radius: var(--cinema-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--cinema-shadow);
+  border: 1px solid rgba(131, 148, 150, 0.06);
+}
+
+.cinema-form__header {
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--cinema-border);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cinema-form__header i {
+  color: var(--cinema-gold);
+  font-size: 1.5rem;
+}
+
+.cinema-form__header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.cinema-form__subtitle {
+  color: var(--cinema-text-faint);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
+
+.cinema-form label,
+.cinema-form .control-label {
+  color: var(--cinema-gold);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.cinema-form .form-control {
+  background: rgba(0, 21, 32, 0.5);
+  border: 1px solid rgba(131, 148, 150, 0.2);
+  color: var(--cinema-text-bright);
+  border-radius: 6px;
+  padding: 0.55rem 0.85rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  max-width: none;
+}
+
+.cinema-form .form-control:focus {
+  background: rgba(0, 21, 32, 0.7);
+  border-color: var(--cinema-gold);
+  box-shadow: 0 0 0 3px var(--cinema-glow-gold);
+  color: var(--cinema-text-bright);
+}
+
+.cinema-form .form-control::placeholder {
+  color: var(--cinema-text-faint);
+  opacity: 0.7;
+}
+
+.cinema-form select.form-control {
+  background: rgba(0, 21, 32, 0.5);
+  color: var(--cinema-text-bright);
+}
+
+.cinema-form select.form-control option {
+  background: var(--cinema-bg-card);
+  color: var(--cinema-text-bright);
+}
+
+.cinema-form textarea.form-control {
+  max-width: none;
+  resize: vertical;
+}
+
+.cinema-form .form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* File upload area */
+.file-upload-area {
+  border: 2px dashed rgba(131, 148, 150, 0.2);
+  border-radius: var(--cinema-radius);
+  padding: 1.5rem;
+  text-align: center;
+  transition: var(--cinema-transition);
+  cursor: pointer;
+  position: relative;
+}
+
+.file-upload-area:hover {
+  border-color: var(--cinema-gold-dim);
+  background: rgba(181, 137, 0, 0.03);
+}
+
+.file-upload-area i {
+  font-size: 1.8rem;
+  color: var(--cinema-text-faint);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.file-upload-area span {
+  color: var(--cinema-text-faint);
+  font-size: 0.85rem;
+}
+
+.file-upload-area .custom-file-input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+/* Custom switch (Bootstrap 4) */
+.cinema-form .custom-switch .custom-control-label::before {
+  background-color: rgba(131, 148, 150, 0.2);
+  border-color: rgba(131, 148, 150, 0.3);
+}
+
+.cinema-form .custom-switch .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--cinema-gold);
+  border-color: var(--cinema-gold);
+}
+
+/* Current poster preview in edit */
+.cinema-form__poster-preview {
+  border-radius: var(--cinema-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--cinema-border);
+}
+
+/* --------------------------------------------------------------------------
+   12. CINEMA TABLE (.cinema-table)
+   -------------------------------------------------------------------------- */
+.cinema-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.cinema-table thead th {
+  color: var(--cinema-gold);
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  letter-spacing: 1.2px;
+  font-weight: 700;
+  border-bottom: 2px solid var(--cinema-border) !important;
+  border-top: none !important;
+  padding: 0.85rem 1rem;
+  white-space: nowrap;
+}
+
+.cinema-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.cinema-table tbody tr:hover {
+  background-color: rgba(7, 54, 66, 0.5) !important;
+}
+
+.cinema-table tbody td {
+  border-color: rgba(131, 148, 150, 0.06) !important;
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+  color: var(--cinema-text-muted);
+}
+
+.cinema-table tbody td:first-child {
+  font-weight: 500;
+  color: var(--cinema-text-bright);
+}
+
+/* --------------------------------------------------------------------------
+   13. MODAL (.cinema-modal)
+   -------------------------------------------------------------------------- */
+.cinema-modal .modal-content {
+  background: var(--cinema-bg-card);
+  border-radius: var(--cinema-radius-lg);
+  border: 1px solid var(--cinema-border);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.cinema-modal .modal-header {
+  border-bottom-color: var(--cinema-border);
+  background: var(--cinema-bg-surface);
+  padding: 1.1rem 1.5rem;
+}
+
+.cinema-modal .modal-header .modal-title {
+  color: var(--cinema-text-bright);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cinema-modal .modal-header .close {
+  color: var(--cinema-text-faint);
+  text-shadow: none;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.cinema-modal .modal-header .close:hover {
+  opacity: 1;
+  color: var(--cinema-text-bright);
+}
+
+.cinema-modal .modal-body {
+  padding: 1.5rem;
+}
+
+.cinema-modal .modal-footer {
+  border-top-color: var(--cinema-border);
+  padding: 1rem 1.5rem;
+}
+
+.modal-detail-layout {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.modal-detail-layout img {
+  width: 280px;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: var(--cinema-radius);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.modal-detail-layout .modal-detail-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-detail-layout .modal-detail-info dt {
+  color: var(--cinema-gold);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  margin-top: 0.6rem;
+}
+
+.modal-detail-layout .modal-detail-info dt:first-child {
+  margin-top: 0;
+}
+
+.modal-detail-layout .modal-detail-info dd {
+  color: var(--cinema-text-bright);
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+/* --------------------------------------------------------------------------
+   14. ALERTS (.cinema-alert)
+   -------------------------------------------------------------------------- */
+.cinema-alert {
+  border-radius: var(--cinema-radius);
+  border-left: 4px solid;
+  animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.cinema-alert i {
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.cinema-alert.alert-danger {
+  border-left-color: var(--cinema-danger);
+  background: rgba(211, 54, 130, 0.1);
+}
+
+.cinema-alert.alert-success {
+  border-left-color: var(--cinema-success);
+  background: rgba(42, 161, 152, 0.1);
+}
+
+.cinema-alert .close {
+  text-shadow: none;
+  opacity: 0.5;
+}
+
+.cinema-alert .close:hover {
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   15. DELETE CONFIRMATION (.cinema-delete-confirm)
+   -------------------------------------------------------------------------- */
+.cinema-delete-confirm {
+  background: var(--cinema-bg-card);
+  border: 1px solid var(--cinema-danger-dim);
+  border-radius: var(--cinema-radius-lg);
+  padding: 2rem;
+  box-shadow: var(--cinema-shadow);
+}
+
+.cinema-delete-confirm__header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--cinema-danger-dim);
+}
+
+.cinema-delete-confirm__header i {
+  color: var(--cinema-danger);
+  font-size: 1.3rem;
+}
+
+.cinema-delete-confirm__header h4 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.cinema-delete-confirm__question {
+  font-size: 1.05rem;
+  color: var(--cinema-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.cinema-delete-confirm__question strong {
+  color: var(--cinema-text-bright);
+}
+
+.cinema-delete-confirm__poster-wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: var(--cinema-radius);
+  overflow: hidden;
+}
+
+.cinema-delete-confirm__poster-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(211, 54, 130, 0.2);
+  pointer-events: none;
+}
+
+.cinema-delete-confirm__poster-wrapper img {
+  display: block;
+  max-width: 250px;
+  border-radius: var(--cinema-radius);
+}
+
+.cinema-delete-confirm__actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   16. EMPTY STATE (.cinema-empty-state)
+   -------------------------------------------------------------------------- */
+.cinema-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  animation: fadeInUp 0.5s ease;
+}
+
+.cinema-empty-state i {
+  font-size: 4rem;
+  color: var(--cinema-text-faint);
+  margin-bottom: 1.5rem;
+  display: block;
+  opacity: 0.5;
+}
+
+.cinema-empty-state h4 {
+  color: var(--cinema-text-bright);
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.cinema-empty-state p {
+  color: var(--cinema-text-faint);
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   17. QUICK LINK CARDS (.cinema-quick-link)
+   -------------------------------------------------------------------------- */
+.cinema-quick-link {
+  background: var(--cinema-bg-card);
+  border: 1px solid transparent;
+  border-radius: var(--cinema-radius);
+  padding: 2rem;
+  text-align: center;
+  transition: var(--cinema-transition);
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.cinema-quick-link:hover {
+  transform: translateY(-4px);
+  border-color: var(--cinema-border);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), 0 0 15px var(--cinema-glow-gold);
+  text-decoration: none;
+  color: inherit;
+}
+
+.cinema-quick-link__icon {
+  font-size: 2.2rem;
+  color: var(--cinema-gold);
+  margin-bottom: 1rem;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.cinema-quick-link:hover .cinema-quick-link__icon {
+  transform: scale(1.1);
+}
+
+.cinema-quick-link__title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cinema-text-bright);
+  margin-bottom: 0.4rem;
+}
+
+.cinema-quick-link__desc {
+  font-size: 0.85rem;
+  color: var(--cinema-text-faint);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   18. BUTTON OVERRIDES
+   -------------------------------------------------------------------------- */
+.btn-primary {
+  background-color: var(--cinema-gold) !important;
+  border-color: var(--cinema-gold) !important;
+  color: var(--cinema-bg-deep) !important;
+  font-weight: 600;
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: var(--cinema-gold-light) !important;
+  border-color: var(--cinema-gold-light) !important;
+  color: var(--cinema-bg-deep) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--cinema-glow-gold);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-outline-cinema {
+  background: transparent;
+  border: 2px solid var(--cinema-gold);
+  color: var(--cinema-gold);
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 0.4rem 1.2rem;
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-outline-cinema:hover {
+  background: var(--cinema-gold);
+  color: var(--cinema-bg-deep);
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--cinema-glow-gold);
+}
+
+.btn {
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-info {
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-info:hover {
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-danger:hover {
+  transform: translateY(-1px);
+}
+
+.btn-warning {
+  transition: var(--cinema-transition-fast);
+}
+
+.btn-warning:hover {
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   19. ANIMATIONS
+   -------------------------------------------------------------------------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(42, 161, 152, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(42, 161, 152, 0.9);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Staggered card animations */
+.filme-card {
+  animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+.filme-card:nth-child(1) { animation-delay: 0.03s; }
+.filme-card:nth-child(2) { animation-delay: 0.06s; }
+.filme-card:nth-child(3) { animation-delay: 0.09s; }
+.filme-card:nth-child(4) { animation-delay: 0.12s; }
+.filme-card:nth-child(5) { animation-delay: 0.15s; }
+.filme-card:nth-child(6) { animation-delay: 0.18s; }
+.filme-card:nth-child(7) { animation-delay: 0.21s; }
+.filme-card:nth-child(8) { animation-delay: 0.24s; }
+.filme-card:nth-child(9) { animation-delay: 0.27s; }
+.filme-card:nth-child(10) { animation-delay: 0.3s; }
+.filme-card:nth-child(n+11) { animation-delay: 0.33s; }
+
+/* --------------------------------------------------------------------------
+   20. RESPONSIVE
+   -------------------------------------------------------------------------- */
+@media (max-width: 576px) {
+  .cinema-hero {
+    min-height: 50vh;
+    padding: 2rem 1rem;
+  }
+
+  .cinema-hero h1 {
+    font-size: 2rem;
+  }
+
+  .cinema-hero .lead {
+    font-size: 1rem;
+  }
+
+  .filme-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 160px));
+    gap: 0.8rem;
+  }
+
+  .filme-card__body {
+    padding: 0.4rem 0.5rem 0.5rem;
+  }
+
+  .filme-card__title {
+    font-size: 0.75rem;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .cinema-form {
+    padding: 1.25rem;
+  }
+
+  .modal-detail-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .modal-detail-layout img {
+    width: 200px;
+  }
+
+  .filme-detail__poster {
+    max-width: 220px;
+    margin: 0 auto 1.5rem;
+    display: block;
+  }
+
+  .cinema-delete-confirm {
+    padding: 1.25rem;
+  }
+
+  .btn-action {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .filme-grid {
+    grid-template-columns: repeat(auto-fill, minmax(130px, 160px));
+  }
+
+  .cinema-hero__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cinema-hero__actions .btn {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .filme-grid {
+    grid-template-columns: repeat(auto-fill, minmax(170px, 200px));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   21. UTILITIES
+   -------------------------------------------------------------------------- */
+.text-cinema-gold {
+  color: var(--cinema-gold) !important;
+}
+
+.text-cinema-bright {
+  color: var(--cinema-text-bright) !important;
+}
+
+.text-cinema-muted {
+  color: var(--cinema-text-muted) !important;
+}
+
+.bg-cinema-card {
+  background-color: var(--cinema-bg-card) !important;
+}
+
+.bg-cinema-deep {
+  background-color: var(--cinema-bg-deep) !important;
+}
+
+.cinema-badge {
+  display: inline-block;
+  padding: 0.25em 0.7em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.cinema-badge--genre {
+  background: rgba(38, 139, 210, 0.15);
+  color: #268bd2;
+}
+
+.cinema-badge--year {
+  background: rgba(131, 148, 150, 0.15);
+  color: var(--cinema-text-muted);
+}
+
+.cinema-badge--rating {
+  background: rgba(181, 137, 0, 0.15);
+  color: var(--cinema-gold);
+}
+
+.cinema-badge--active {
+  background: rgba(42, 161, 152, 0.15);
+  color: var(--cinema-success);
+}
+
+.cinema-badge--inactive {
+  background: rgba(131, 148, 150, 0.15);
+  color: var(--cinema-text-faint);
+}
+
+.cinema-divider {
+  border: none;
+  border-top: 1px solid var(--cinema-border);
+  margin: 1.5rem 0;
+}
+
+/* Page header flex layout */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header .page-title {
+  margin-bottom: 0;
+}
+
+/* Login partial styling */
+.cinema-navbar .navbar-text {
+  color: var(--cinema-text-muted);
+  font-size: 0.9rem;
+}
+
+.cinema-navbar .nav-link-auth {
+  font-size: 0.88rem;
+}
+
+.cinema-navbar .nav-link-auth i {
+  font-size: 0.82rem;
+}
+
+/* ================================================
+   AUTH PAGES (Login / Register)
+   ================================================ */
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 65vh;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: linear-gradient(145deg, #073642 0%, #002b36 100%);
+  border: 1px solid var(--cinema-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 60px rgba(181, 137, 0, 0.05);
+  overflow: hidden;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.auth-card__header {
+  text-align: center;
+  padding: 2rem 2rem 1rem;
+  border-bottom: 1px solid rgba(181, 137, 0, 0.15);
+}
+
+.auth-card__icon {
+  font-size: 2.5rem;
+  color: var(--cinema-gold);
+  margin-bottom: 0.75rem;
+  display: block;
+  filter: drop-shadow(0 0 8px rgba(181, 137, 0, 0.3));
+}
+
+.auth-card__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--cinema-text);
+  margin-bottom: 0.25rem;
+}
+
+.auth-card__subtitle {
+  font-size: 0.9rem;
+  color: var(--cinema-text-muted);
+  margin-bottom: 0;
+}
+
+.auth-card__body {
+  padding: 1.75rem 2rem 2rem;
+}
+
+.auth-card__body .form-group {
+  margin-bottom: 1.25rem;
+}
+
+.auth-card__body .cinema-form__input {
+  background: rgba(0, 43, 54, 0.6);
+  border: 1px solid var(--cinema-border);
+  color: var(--cinema-text);
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-card__body .cinema-form__input:focus {
+  border-color: var(--cinema-gold);
+  box-shadow: 0 0 0 0.2rem rgba(181, 137, 0, 0.15);
+  background: rgba(0, 43, 54, 0.8);
+}
+
+.auth-card__body .cinema-form__input::placeholder {
+  color: rgba(131, 148, 150, 0.5);
+}
+
+.auth-card__body .cinema-form__label {
+  color: var(--cinema-gold);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.4rem;
+}
+
+.auth-card__body .cinema-form__label i {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.auth-btn {
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.3px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.auth-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(181, 137, 0, 0.3);
+}
+
+.auth-remember-label {
+  color: var(--cinema-text-muted);
+  font-size: 0.9rem;
+}
+
+.auth-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(131, 148, 150, 0.1);
+}
+
+.auth-links a {
+  color: var(--cinema-text-muted);
+  font-size: 0.88rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+  color: var(--cinema-gold);
+  text-decoration: none;
+}
+
+.auth-links a i {
+  margin-right: 0.25rem;
+}
+
+/* Custom checkbox override for auth pages */
+.auth-card .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: var(--cinema-gold);
+  border-color: var(--cinema-gold);
+}
+
+@media (max-width: 480px) {
+  .auth-card__header {
+    padding: 1.5rem 1.25rem 0.75rem;
+  }
+
+  .auth-card__body {
+    padding: 1.25rem;
+  }
+
+  .auth-card__icon {
+    font-size: 2rem;
+  }
+
+  .auth-card__title {
+    font-size: 1.3rem;
+  }
 }

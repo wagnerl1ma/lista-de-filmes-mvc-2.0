@@ -1,31 +1,40 @@
-﻿
+
 @if (ViewData.ModelState.ErrorCount > 0)
 {
-    <div style="padding-top: 15px;"></div>
-
-    <div class="alert alert-danger">
-        <button type="button" class="close text-black-50" data-dismiss="alert"><b>×</b></button>
-        <h3 id="msgRetorno" style="padding-top: 20px">Opa! Algo deu errado :(</h3>
-        <div style="padding-top: 20px" asp-validation-summary="ModelOnly" class="text-white-50"></div>
+    <div class="mt-3">
+        <div class="alert alert-danger cinema-alert">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>
+                <h5 id="msgRetorno" class="mb-1">Opa! Algo deu errado :(</h5>
+                <div asp-validation-summary="ModelOnly" class="text-white-50 small"></div>
+            </div>
+        </div>
     </div>
 }
 
 @if (!string.IsNullOrEmpty(ViewBag.Sucesso))
 {
-    <div style="padding-top: 15px"></div>
-
-    <div id="msg_box" class="alert alert-success">
-        <button type="button" class="close text-black-50" data-dismiss="alert"><b>×</b></button>
-        <h3 id="msgRetorno">@ViewBag.Sucesso</h3>
+    <div class="mt-3">
+        <div id="msg_box" class="alert alert-success cinema-alert">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <h5 id="msgRetorno" class="mb-0">@ViewBag.Sucesso</h5>
+            </div>
+        </div>
     </div>
 }
 
 @if (TempData["Sucesso"] != null)
 {
-    <div style="padding-top: 15px"></div>
-
-    <div id="msg_box" class="alert alert-success">
-        <button type="button" class="close text-black-50" data-dismiss="alert"><b>×</b></button>
-        <h4 id="msgRetorno">@Html.Raw(TempData["Sucesso"]?.ToString())</h4>
+    <div class="mt-3">
+        <div id="msg_box" class="alert alert-success cinema-alert">
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            <i class="fas fa-check-circle"></i>
+            <div>
+                <h5 id="msgRetorno" class="mb-0">@Html.Raw(TempData["Sucesso"]?.ToString())</h5>
+            </div>
+        </div>
     </div>
 }

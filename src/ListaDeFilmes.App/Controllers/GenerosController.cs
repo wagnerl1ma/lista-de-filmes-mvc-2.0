@@ -25,7 +25,6 @@ namespace ListaDeFilmes.App.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
         [Route("lista-de-generos")]
         public async Task<IActionResult> Index(CancellationToken ct = default)
         {
@@ -33,7 +32,6 @@ namespace ListaDeFilmes.App.Controllers
            // return View(await _generoRepository.ObterTodos());
         }
 
-        [AllowAnonymous]
         [Route("detalhes-do-genero/{id:guid}")]
         public async Task<IActionResult> Details(Guid id, CancellationToken ct = default)
         {
@@ -48,7 +46,6 @@ namespace ListaDeFilmes.App.Controllers
             return View(generoViewModel);
         }
 
-        [AllowAnonymous]
         [Route("detalhes-do-genero-modal/{id:guid}")]
         public async Task<IActionResult> DetailsModal(Guid id, CancellationToken ct = default)
         {

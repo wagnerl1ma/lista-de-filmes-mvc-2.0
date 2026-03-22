@@ -1,6 +1,6 @@
-# CLAUDE.md — Lista de Filmes 2.0
+# CLAUDE.md
 
-Instruções para o assistente de IA ao trabalhar neste projeto.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ---
 
@@ -19,13 +19,44 @@ com gênero, diretor, produtora e elenco, com controle de acesso por claims.
 
 ---
 
+## Comandos Essenciais
+
+```bash
+# Build da solução completa
+dotnet build ListaDeFilmes.sln
+
+# Executar a aplicação
+dotnet run --project src/ListaDeFilmes.App
+
+# Rodar todos os testes
+dotnet test src/ListaDeFilmes.Tests
+
+# Rodar um teste específico pelo nome do método
+dotnet test src/ListaDeFilmes.Tests --filter "FullyQualifiedName~AdicionarFilme_FilmeValido"
+
+# Rodar testes de uma classe específica
+dotnet test src/ListaDeFilmes.Tests --filter "ClassName~FilmeServiceTests"
+
+# Adicionar migration
+dotnet ef migrations add <NomeDaMigration> --project src/ListaDeFilmes.Data --startup-project src/ListaDeFilmes.App
+
+# Aplicar migrations manualmente
+dotnet ef database update --project src/ListaDeFilmes.Data --startup-project src/ListaDeFilmes.App
+```
+
+**Connection string:** configurar em `appsettings.Development.json`
+**User Secrets:** ativo apenas em ambiente `Production` (ver `Program.cs`)
+
+---
+
 ## Estrutura de Pastas
 
 ```
 src/
 ├── ListaDeFilmes.App/        # Apresentação: Controllers, Views, ViewModels, TagHelpers
 ├── ListaDeFilmes.Business/   # Domínio: Models, Services, Interfaces, Notificações
-└── ListaDeFilmes.Data/       # Dados: DbContext, Repositories, Mappings, Migrations
+├── ListaDeFilmes.Data/       # Dados: DbContext, Repositories, Mappings, Migrations
+└── ListaDeFilmes.Tests/      # Testes: xUnit + Moq + FluentAssertions
 ```
 
 ### App
@@ -35,6 +66,7 @@ src/
 - `Extensions/` — Extensões de validação e autorização
 - `Configurations/` — DependencyInjectionConfig, IdentityConfig, MvcConfig, GlobalizationConfig
 - `TagHelpers/` — Custom tag helpers de autorização por claims
+- `AutoMapper/` — Profiles do AutoMapper
 
 ### Business
 - `Models/` — Entidades de domínio (herdam de `Entity.cs`)
@@ -142,6 +174,38 @@ public async Task<IActionResult> Create(FilmeViewModel filmeViewModel) { ... }
 
 ---
 
+## Testes
+
+Projeto criado em `src/ListaDeFilmes.Tests` com xUnit + Moq + FluentAssertions.
+
+**Estrutura dos testes:**
+```
+ListaDeFilmes.Tests/
+├── Notificacoes/     — testes do Notificador
+├── Services/         — testes de services (repositórios mockados com Moq)
+└── Validations/      — testes de FluentValidation diretamente
+```
+
+**Padrão de método:** `Metodo_Cenario_ResultadoEsperado`
+Exemplo: `AdicionarFilme_FilmeSemNome_DeveNotificarErro`
+
+**Padrão de classe de teste (Services):**
+```csharp
+public class FilmeServiceTests
+{
+    private readonly Mock<IFilmeRepository> _filmeRepositoryMock = new();
+    private readonly Notificador _notificador = new();
+    private readonly FilmeService _service;
+
+    public FilmeServiceTests()
+    {
+        _service = new FilmeService(_filmeRepositoryMock.Object, _notificador);
+    }
+}
+```
+
+---
+
 ## Checklist: Como Adicionar uma Nova Entidade
 
 Siga esta ordem ao implementar uma nova entidade completa:
@@ -157,7 +221,7 @@ Siga esta ordem ao implementar uma nova entidade completa:
 - [ ] `Mappings/NovaEntidadeMapping.cs` — Fluent API (seguir convenção de nomes de tabela/coluna)
 - [ ] `Repository/NovaEntidadeRepository.cs`
 - [ ] Adicionar `DbSet<NovaEntidade>` em `ListaDeFilmesContext.cs`
-- [ ] `Add-Migration` + `Update-Database`
+- [ ] `dotnet ef migrations add` + `dotnet ef database update`
 
 **App:**
 - [ ] `ViewModels/NovaEntidadeViewModel.cs`
@@ -165,39 +229,6 @@ Siga esta ordem ao implementar uma nova entidade completa:
 - [ ] `Controllers/NovaEntidadeController.cs` com `[ClaimsAuthorize]`
 - [ ] Views: `Index`, `Create`, `Edit`, `Delete`, `Details`
 - [ ] Registrar Service e Repository como `Scoped` em `DependencyInjectionConfig`
-
----
-
-## Configuração e Execução
-
-**Pré-requisitos:** .NET 8 SDK, SQL Server LocalDB
-
-```bash
-# Restaurar dependências
-dotnet restore
-
-# Aplicar migrations (automático na inicialização via Program.cs)
-dotnet ef database update --project src/ListaDeFilmes.Data --startup-project src/ListaDeFilmes.App
-
-# Executar
-dotnet run --project src/ListaDeFilmes.App
-```
-
-**Connection string:** configurar em `appsettings.Development.json`
-**User Secrets:** ativo apenas em ambiente `Production`
-
----
-
-## Testes
-
-Projeto de testes ainda não criado. Ao criar:
-
-- Usar **xUnit**
-- Nome do projeto: `ListaDeFilmes.Tests`
-- Padrão de método: `Metodo_Cenario_ResultadoEsperado`
-- Exemplo: `AdicionarFilme_FilmeSemNome_DeveNotificarErro`
-- Testar services com repositórios mockados (Moq)
-- Testar validações do FluentValidation diretamente
 
 ---
 
@@ -216,4 +247,3 @@ Projeto de testes ainda não criado. Ao criar:
 - `DiretorId` e `ProdutoraId` em `Filme.cs` estão nullable (`?`) temporariamente — tornar obrigatórios quando os CRUDs de Diretor e Produtora forem finalizados
 - Implementar CRUD completo de Diretor e Produtora
 - Configurar pipelines CI/CD em `.github/workflows/`
-- Criar projeto `ListaDeFilmes.Tests`

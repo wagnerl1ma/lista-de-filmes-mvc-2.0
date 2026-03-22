@@ -1,103 +1,108 @@
-﻿@model ListaDeFilmes.App.ViewModels.FilmeViewModel
+@model ListaDeFilmes.App.ViewModels.FilmeViewModel
 
 @{
-    ViewData["Title"] = "Filme";
+    ViewData["Title"] = "Novo Filme";
 }
 
-<h1 style="padding-top: 10px">@ViewData["Title"] </h1>
-
-<h4>Cadastrar</h4>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form enctype="multipart/form-data" asp-action="Create">
-
-            <vc:Summary></vc:Summary>
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
+<div class="row mt-4">
+    <div class="col-lg-8 mx-auto">
+        <div class="cinema-form">
+            <div class="cinema-form__header">
+                <i class="fas fa-plus-circle"></i>
+                <div>
+                    <h2>Novo Filme</h2>
+                    <p class="cinema-form__subtitle">Preencha os dados do filme</p>
+                </div>
             </div>
 
-            @*<div class="form-group">
-            <label asp-for="DataCadastro" class="control-label"></label>
-            <input asp-for="DataCadastro" class="form-control" />
-            <span asp-validation-for="DataCadastro" class="text-danger"></span>
-        </div>*@
+            <form enctype="multipart/form-data" asp-action="Create">
 
-            <div class="form-group">
-                <label asp-for="Classificacao" class="control-label"></label>
-                <input asp-for="Classificacao" class="form-control" />
-                <span asp-validation-for="Classificacao" class="text-danger"></span>
-            </div>
+                <vc:Summary></vc:Summary>
 
-            <div class="form-group">
-                <label asp-for="Ano" class="control-label"></label>
-                <input asp-for="Ano" class="form-control" />
-                <span asp-validation-for="Ano" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="Comentarios" class="control-label"></label>
-                <textarea cols="40" rows="5" asp-for="Comentarios" class="form-control"></textarea>
-                <span asp-validation-for="Comentarios" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <label asp-for="ImagemUpload" class="control-label"></label>
-
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="ImagemUpload" asp-for="ImagemUpload">
-                    <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImagemUpload"></label>
-                    <label style="display: none" id="img_nome"></label>
+                <div class="form-group">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" placeholder="Nome do filme" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
                 </div>
 
-                <span asp-validation-for="ImagemUpload" class="text-danger"></span>
-            </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Classificacao" class="control-label"></label>
+                            <input asp-for="Classificacao" class="form-control" />
+                            <span asp-validation-for="Classificacao" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Ano" class="control-label"></label>
+                            <input asp-for="Ano" class="form-control" placeholder="Ex: 2024" />
+                            <span asp-validation-for="Ano" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="GeneroId" class="control-label"></label>
+                            <select asp-for="GeneroId" class="form-control" asp-items="@(new SelectList(Model.Generos, "Id", "Nome"))">
+                                <option value="">Selecione um G&ecirc;nero</option>
+                            </select>
+                            <span asp-validation-for="GeneroId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="Valor" class="control-label"></label>
-                <input asp-for="Valor" class="form-control" />
-                <span asp-validation-for="Valor" class="text-danger"></span>
-            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Valor" class="control-label"></label>
+                            <input asp-for="Valor" class="form-control" />
+                            <span asp-validation-for="Valor" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group pt-4">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" asp-for="Ativo" id="ativoSwitch" />
+                                <label class="custom-control-label" for="ativoSwitch" style="text-transform: none; font-size: 0.95rem; letter-spacing: 0;">
+                                    @Html.DisplayNameFor(model => model.Ativo)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
-                </label>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Comentarios" class="control-label"></label>
+                    <textarea cols="40" rows="4" asp-for="Comentarios" class="form-control" placeholder="Suas impressoes sobre o filme..."></textarea>
+                    <span asp-validation-for="Comentarios" class="text-danger"></span>
+                </div>
 
-            <div class="form-group">
-                <label asp-for="GeneroId" class="control-label"></label>
-                <select asp-for="GeneroId" class="form-control" asp-items="@(new SelectList(Model.Generos, "Id", "Nome"))">
-                    <option value="">Selecione um Gênero</option>
-                </select>
+                <div class="form-group">
+                    <label asp-for="ImagemUpload" class="control-label"></label>
+                    <div class="file-upload-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Clique para selecionar uma imagem</span>
+                        <input type="file" class="custom-file-input" id="ImagemUpload" asp-for="ImagemUpload" />
+                    </div>
+                    <label style="display: none; margin-top: 0.5rem;" id="img_nome" class="text-cinema-gold small"></label>
+                    <span asp-validation-for="ImagemUpload" class="text-danger"></span>
+                </div>
 
-                <span asp-validation-for="GeneroId" class="text-danger"></span>
-            </div>
+                <hr class="cinema-divider" />
 
+                <div class="form-group d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Cadastrar
+                    </button>
+                    <a class="btn btn-outline-cinema ml-2" asp-action="Index">
+                        <i class="fas fa-arrow-left"></i> Voltar
+                    </a>
+                </div>
 
-            @*<div class="form-group">
-            <label asp-for="DiretorId" class="control-label"></label>
-            <select asp-for="DiretorId" class="form-control" asp-items="ViewBag.DiretorId"></select>
-        </div>*@
-
-            @*<div class="form-group">
-            <label asp-for="ProdutoraId" class="control-label"></label>
-            <select asp-for="ProdutoraId" class="form-control" asp-items="ViewBag.ProdutoraId"></select>
-        </div>*@
-
-            <div class="form-group">
-                <input type="submit" value="Cadastrar" class="btn btn-primary" />
-                <a class="btn btn-info" asp-action="Index">Voltar</a>
-            </div>
-
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,93 +1,76 @@
-﻿@model ListaDeFilmes.App.ViewModels.FilmeViewModel
+@model ListaDeFilmes.App.ViewModels.FilmeViewModel
 
 @{
     ViewData["Title"] = "Excluir " + Model.Nome;
 }
 
-<h4 style="padding-top: 50px">@ViewData["Title"] </h4>
+<div class="mt-4">
+    <div class="cinema-delete-confirm">
+        <div class="cinema-delete-confirm__header">
+            <i class="fas fa-exclamation-triangle"></i>
+            <h4>Excluir Filme</h4>
+        </div>
 
-<h5>Você tem certeza disso?</h5>
+        <p class="cinema-delete-confirm__question">
+            Tem certeza que deseja excluir <strong>@Model.Nome</strong>? Esta acao nao pode ser desfeita.
+        </p>
 
-<div class="row">
-    <div class="col-md-4">
-        <img src="~/imagens/@Model.Imagem" alt="@Model.Imagem" style="width: 300px; height: 428px" />
-    </div>
-    <div class="col-md-6">
-        <dl>
-            <dt>
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.DataCadastro)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.DataCadastro)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Classificacao)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Classificacao)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ano)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ano)
-            </dd>
-            @*<dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Comentarios)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Comentarios)
-                </dd>*@
-            <dt>
-                @Html.DisplayNameFor(model => model.Imagem)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Imagem)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Valor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Valor)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Genero)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Genero!.Nome)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Diretor)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Diretor!.Id)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Produtora)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Produtora!.Id)
-            </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.Ativo)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Ativo)
-            </dd>
-        </dl>
+        <div class="row">
+            <div class="col-md-4 mb-3 text-center">
+                <div class="cinema-delete-confirm__poster-wrapper">
+                    <img src="~/imagens/@Model.Imagem" alt="@Model.Nome" />
+                </div>
+            </div>
+            <div class="col-md-8">
+                <ul class="filme-detail__meta">
+                    <li class="filme-detail__meta-item">
+                        <i class="fas fa-film"></i>
+                        <span class="filme-detail__meta-label">Nome</span>
+                        <span class="filme-detail__meta-value">@Model.Nome</span>
+                    </li>
+                    @if (Model.Genero != null)
+                    {
+                        <li class="filme-detail__meta-item">
+                            <i class="fas fa-theater-masks"></i>
+                            <span class="filme-detail__meta-label">G&ecirc;nero</span>
+                            <span class="filme-detail__meta-value">@Model.Genero.Nome</span>
+                        </li>
+                    }
+                    @if (Model.Ano.HasValue)
+                    {
+                        <li class="filme-detail__meta-item">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span class="filme-detail__meta-label">Ano</span>
+                            <span class="filme-detail__meta-value">@Model.Ano</span>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(Model.Classificacao))
+                    {
+                        <li class="filme-detail__meta-item">
+                            <i class="fas fa-star"></i>
+                            <span class="filme-detail__meta-label">Classifica&ccedil;&atilde;o</span>
+                            <span class="filme-detail__meta-value">@Model.Classificacao</span>
+                        </li>
+                    }
+                    <li class="filme-detail__meta-item">
+                        <i class="fas fa-tag"></i>
+                        <span class="filme-detail__meta-label">Valor</span>
+                        <span class="filme-detail__meta-value">@Model.Valor.ToString("C2").Replace("$", "$ ")</span>
+                    </li>
+                </ul>
 
-        <div>
-            <form asp-action="Delete">
-                <input type="hidden" asp-for="Id" />
-                <input type="submit" value="Excluir" class="btn btn-danger" />
-                <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
-            </form>
+                <div class="cinema-delete-confirm__actions">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Excluir
+                        </button>
+                        <a class="btn btn-outline-cinema" href="javascript:window.history.back();">
+                            <i class="fas fa-arrow-left"></i> Cancelar
+                        </a>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>

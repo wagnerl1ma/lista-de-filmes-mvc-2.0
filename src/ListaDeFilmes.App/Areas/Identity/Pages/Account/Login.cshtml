@@ -1,0 +1,62 @@
+@page
+@model ListaDeFilmes.App.Areas.Identity.Pages.Account.LoginModel
+
+@{
+    ViewData["Title"] = "Entrar";
+}
+
+<div class="auth-page">
+    <div class="auth-card">
+        <div class="auth-card__header">
+            <i class="fas fa-film auth-card__icon"></i>
+            <h2 class="auth-card__title">Entrar</h2>
+            <p class="auth-card__subtitle">Acesse sua lista de filmes</p>
+        </div>
+
+        <div class="auth-card__body">
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Email" class="cinema-form__label">
+                        <i class="fas fa-envelope"></i> E-mail
+                    </label>
+                    <input asp-for="Input.Email" class="form-control cinema-form__input" autocomplete="username" placeholder="seu@email.com" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Input.Password" class="cinema-form__label">
+                        <i class="fas fa-lock"></i> Senha
+                    </label>
+                    <input asp-for="Input.Password" class="form-control cinema-form__input" autocomplete="current-password" placeholder="Digite sua senha" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="Input.RememberMe" class="custom-control-input" />
+                        <label asp-for="Input.RememberMe" class="custom-control-label auth-remember-label">
+                            Lembrar de mim
+                        </label>
+                    </div>
+                </div>
+
+                <button id="login-submit" type="submit" class="btn btn-primary btn-block auth-btn">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </button>
+
+                <div class="auth-links">
+                    <a id="forgot-password" asp-page="./ForgotPassword">Esqueceu sua senha?</a>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
+                        <i class="fas fa-user-plus"></i> Criar uma conta
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

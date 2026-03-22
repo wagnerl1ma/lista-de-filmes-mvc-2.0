@@ -1,25 +1,30 @@
-﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
-@*@model ListaDeFilmes.Business.Models.Genero*@
+@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 
 @{
-    ViewData["Title"] = "Detalhe do Gênero - " + Model.Nome;
+    ViewData["Title"] = "Detalhe do Genero - " + Model.Nome;
 }
 
-<h3 style="padding-top: 50px">@ViewData["Title"]</h3>
-<hr />
+<div class="mt-4">
+    <h1 class="page-title">
+        <i class="fas fa-theater-masks"></i> @Model.Nome
+    </h1>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-    </dl>
-</div>
+    <div class="cinema-form" style="max-width: 500px;">
+        <ul class="filme-detail__meta mb-0">
+            <li class="filme-detail__meta-item" style="border-bottom: none;">
+                <i class="fas fa-theater-masks"></i>
+                <span class="filme-detail__meta-label">Nome</span>
+                <span class="filme-detail__meta-value">@Model.Nome</span>
+            </li>
+        </ul>
+    </div>
 
-<div>
-    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">Editar</a>
-    <a class="btn btn-info" href="javascript:window.history.back();">Voltar</a>
+    <div class="mt-3">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.Id">
+            <i class="fas fa-pencil-alt"></i> Editar
+        </a>
+        <a class="btn btn-outline-cinema ml-2" href="javascript:window.history.back();">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+    </div>
 </div>

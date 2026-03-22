@@ -1,32 +1,30 @@
-﻿@model ListaDeFilmes.App.ViewModels.GeneroViewModel
+@model ListaDeFilmes.App.ViewModels.GeneroViewModel
 
 @{
-    ViewData["Title"] = "Detalhes do Gênero - " + Model.Nome;
+    ViewData["Title"] = "Detalhes do Genero - " + Model.Nome;
 }
 
 <div class="modal-header">
-    <h4 class="modal-title">@ViewData["Title"]</h4>
+    <h5 class="modal-title">
+        <i class="fas fa-theater-masks text-cinema-gold"></i> @Model.Nome
+    </h5>
     <button type="button" class="close" data-dismiss="modal">
-        <span aria-hidden="true">×</span><span class="sr-only">Fechar</span>
+        <span aria-hidden="true">&times;</span>
     </button>
 </div>
 
-<form asp-action="DetailsModal">
-    <div class="modal-body">
-        <dl>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Nome)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Nome)
-            </dd>
-        </dl>
-    </div>
+<div class="modal-body">
+    <dl class="mb-0">
+        <dt class="text-cinema-gold" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.8px;">Nome</dt>
+        <dd class="text-cinema-bright" style="font-size: 1.1rem;">@Model.Nome</dd>
+    </dl>
+</div>
 
-    <div class="modal-footer">
-        <div class="col text-center">
-            @*<input type="submit" value="Editar" class="btn btn-success" asp-action="Edit" asp-route-id="@Model.Id" />*@
-            <input type="button" class="btn btn-info" value="Fechar" data-dismiss="modal" />
-        </div>
-    </div>
-</form>
+<div class="modal-footer">
+    <a class="btn btn-outline-cinema btn-sm" asp-controller="Generos" asp-action="Details" asp-route-id="@Model.Id">
+        <i class="fas fa-expand"></i> Ver Detalhes
+    </a>
+    <button type="button" class="btn btn-info btn-sm" data-dismiss="modal">
+        Fechar
+    </button>
+</div>
