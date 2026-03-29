@@ -1,6 +1,7 @@
 using ListaDeFilmes.App.Data;
 using ListaDeFilmes.App.Extensions;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ListaDeFilmes.App.Configurations
@@ -25,8 +26,8 @@ namespace ListaDeFilmes.App.Configurations
             .AddErrorDescriber<IdentityMensagensPortugues>()
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            // TODO: [EMAIL] Registrar o servico de e-mail quando implementar
-            // services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddTransient<IEmailSender, EmailSender>();
 
             return services;
         }
