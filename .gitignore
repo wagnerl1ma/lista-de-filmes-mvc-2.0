@@ -6,6 +6,10 @@
 # Claude Code
 .claude/
 
+# Configuracoes locais com credenciais sensiveis
+appsettings.Development.json
+appsettings.Staging.json
+
 # User-specific files
 *.rsuser
 *.suo

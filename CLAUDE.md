@@ -174,6 +174,16 @@ public async Task<IActionResult> Create(FilmeViewModel filmeViewModel) { ... }
 
 ---
 
+## Email (Reset de Senha)
+
+Usa **MailKit** via implementação de `IEmailSender` do Identity.
+
+Credenciais configuradas via `appsettings.json` (seção `EmailSettings`) — preencher localmente, nunca commitar valores reais.
+
+`EmailSender` é registrado como `Transient` em `IdentityConfig.cs` (diferente dos services de negócio que são `Scoped`).
+
+---
+
 ## Testes
 
 Projeto criado em `src/ListaDeFilmes.Tests` com xUnit + Moq + FluentAssertions.
